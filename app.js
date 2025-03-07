@@ -1,24 +1,23 @@
-// app.js
-const connection = require("./backend/routes/config.js");
+const express = require("express");
+const mysql = require("mysql2");
 
-const testConnection = () => {
-  connection.connect((err) => {
-    if (err) {
-      console.error("Database connection failed:", err);
-    } else {
-      console.log("Database connected successfully!");
-    }
-  });
+const app = express();
+const PORT = process.env.PORT || 4000;
 
-  connection.query("SELECT 1", (err, results) => {
-    if (err) {
-      console.error("Error querying database:", err);
-    } else {
-      console.log("Query result:", results);
-    }
+// Connect to database using Environment Variables from Railway
+const db = mysql.createPool({
+  uri: process.env.MYSQL_URL || "mysql://root:password@localhost:3306/db_name",
+});
 
-    connection.end();
-  });
-};
+// Middleware support JSON
+app.use(express.json());
 
-testConnection();
+// Testing API
+app.get("/", (req, res) => {
+  res.send("API is running!");
+});
+
+// Start Server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
