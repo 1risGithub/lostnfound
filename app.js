@@ -7,23 +7,21 @@ const PORT = process.env.PORT || 4000;
 
 // Connect to database using Environment Variables from Railway
 const db = mysql.createPool({
-  uri:
-    process.env.MYSQL_URL ||
-    "mysql://root:cSKvpWezJyVavIilvFdEpQalLALHCxud@nozomi.proxy.rlwy.net:34300/railway",
+  uri: process.env.MYSQL_URL || "mysql://root:cSKvpWezJyVavIilvFdEpQalLALHCxud@nozomi.proxy.rlwy.net:34300/railway",
 });
 
-// Middleware to support JSON parsing
+// Middleware support JSON
 app.use(express.json());
 
-// Serve static files from the "frontend" directory
-app.use(express.static(path.join(__dirname, "frontend")));
+// Serve static files from the 'lostnfound' directory
+app.use(express.static(path.join(__dirname, "lostnfound")));
 
-// Route to serve index.html when accessing the root URL
+// Route to serve index.html at the root path "/"
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "lostnfound", "index.html"));
 });
 
-// Start the server
+// Start Server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
