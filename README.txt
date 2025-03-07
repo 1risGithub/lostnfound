@@ -1,4 +1,5 @@
 README...
 
 cd "C:\Program Files\MySQL\MySQL Server 9.2\bin"
-mysql -h gondola.proxy.rlwy.net -u root -p iaIhBSvFftShhEdmYuWhMOeyeXmKcGKj --port 53027 --protocol=TCP railway
+mysql -h nozomi.proxy.rlwy.net -u root -p --port 34300 --protocol=TCP railway
+cSKvpWezJyVavIilvFdEpQalLALHCxud
