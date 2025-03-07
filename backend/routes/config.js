@@ -1,15 +1,16 @@
+// backend/routes/config.js
+require("dotenv").config({ path: "./backend/routes/.env" });
 const mysql = require("mysql2");
-require("dotenv").config();
 
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+// Use MYSQL_URL from .env
+const connection = mysql.createConnection(process.env.MYSQL_URL);
+
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to the database:", err);
+    return;
+  }
+  console.log("Connected to the database!");
 });
 
-module.exports = pool.promise();
+module.exports = connection;
