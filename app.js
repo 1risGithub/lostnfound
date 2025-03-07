@@ -6,14 +6,14 @@ const PORT = process.env.PORT || 4000;
 
 // Connect to database using Environment Variables from Railway
 const db = mysql.createPool({
-  uri: process.env.MYSQL_URL || "mysql://root:password@localhost:3306/db_name",
+  uri: process.env.MYSQL_URL || "mysql://root:cSKvpWezJyVavIilvFdEpQalLALHCxud@nozomi.proxy.rlwy.net:34300/railway",
 });
 
 // Middleware support JSON
 app.use(express.json());
 
 // Testing API
-app.get("/", (req, res) => {
+app.get("/API", (req, res) => {
   res.send("API is running!");
 });
 
