@@ -16,12 +16,16 @@ const db = mysql.createPool({
 app.use(express.json());
 
 // Serve static files from the 'lostnfound' directory
-const staticPath = path.join("lostnfound");
-app.use(express.static(staticPath));
+app.use(express.static(path.join(__dirname, "lostnfound")));
 
-// Route to serve index.html at the root path "/"
+// Serve index.html at the root path "/"
 app.get("/", (req, res) => {
-  res.sendFile(path.join(staticPath, "index.html"));
+  res.sendFile(path.join(__dirname, "lostnfound", "index.html"));
+});
+
+// Example API endpoint at "/API"
+app.get("/API", (req, res) => {
+  res.send("API is running!");
 });
 
 // Start Server
