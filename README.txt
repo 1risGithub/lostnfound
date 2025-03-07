@@ -1,1 +1,1 @@
-mysql -h caboose.proxy.rlwy.net -u root -p wsjoYyMMRQhrifYFVBCnTHoWcKMDqlyL --port 17758 --protocol=TCP railway
+mysql -h gondola.proxy.rlwy.net -u root -p iaIhBSvFftShhEdmYuWhMOeyeXmKcGKj --port 53027 --protocol=TCP railway
