@@ -6,17 +6,22 @@ const helmet = require("helmet");
 const compression = require("compression");
 require("dotenv").config();
 
-const routes = require("./backend/config/routes"); // Correctly import routes
+const { PORT } = require("./backend/config/config");
+const postRoutes = require("./backend/routes/posts");
 
 const app = express();
 
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+const uploadsPath = path.join(__dirname, "backend", "uploads");
 
-const corsOptions = {
-  origin: "http://127.0.0.1:5500",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+app.use(
+  "/uploads",
+  express.static(uploadsPath, {
+    setHeaders: (res, path, stat) => {
+      res.set("Access-Control-Allow-Origin", "*");
+      res.set("Cache-Control", "no-store");
+    },
+  })
+);
 
 // ✅ Middleware
 app.use(cors());
@@ -26,7 +31,7 @@ app.use(helmet());
 app.use(compression());
 
 // ✅ Routes
-app.use("/api", routes()); // Call the routes function and mount it at /api
+app.use("/api/posts", postRoutes);
 
 // ✅ Handle 404 Not Found
 app.use((req, res) => {
@@ -40,5 +45,4 @@ app.use((err, req, res, next) => {
 });
 
 // ✅ Start server
-const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`🚀 Server running on port: ${PORT}`));
