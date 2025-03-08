@@ -1,0 +1,36 @@
+/* Import Red Rose Font */
+@font-face {
+  font-family: "Red Rose";
+  src: url("../src/font/Red_Rose/RedRose-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* General styles */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: "Red Rose", Arial, sans-serif;
+}
+
+/* Loading Screen */
+.loading-screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #23dfcf, #ecfffd);
+}
+
+.logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
