@@ -8,6 +8,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(
+  express.static(path.join(__dirname, "frontend"), {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith(".css")) {
+        res.setHeader("Content-Type", "text/css");
+      }
+    },
+  })
+);
+
 // Serve static files from the root directory
 app.use(express.static(__dirname));
 
