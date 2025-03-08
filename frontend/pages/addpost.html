@@ -131,34 +131,35 @@
     <footer class="footer">
       <div class="container d-flex justify-content-around">
         <a
-          href="?page=home"
-          id="homeLink"
-          onclick="loadPage('home')"
+          href="home.html?page=home"
           class="footer-icon"
-          ><i class="bi bi-house-door-fill"></i
-        ></a>
+          onclick="changePage('home'); return false;"
+        >
+          <i class="bi bi-house-door-fill"></i>
+        </a>
         <a
-          href="?page=search"
-          id="searchLink"
-          onclick="loadPage('search')"
+          href="home.html?page=search"
           class="footer-icon"
-          ><i class="bi bi-search-heart-fill"></i
-        ></a>
+          onclick="changePage('search'); return false;"
+        >
+          <i class="bi bi-search-heart-fill"></i>
+        </a>
         <a
-          href="?page=addpost"
-          id="addLink"
-          onclick="loadPage('addpost')"
+          href="home.html?page=addpost"
           class="footer-icon"
-          ><i class="bi bi-plus-circle-fill"></i
-        ></a>
+          onclick="changePage('addpost'); return false;"
+        >
+          <i class="bi bi-plus-circle-fill"></i>
+        </a>
         <a
-          href="?page=profile"
-          id="profileLink"
-          onclick="loadPage('profile')"
+          href="home.html?page=profile"
           class="footer-icon"
-          ><i class="bi bi-person-fill"></i
-        ></a>
+          onclick="changePage('profile'); return false;"
+        >
+          <i class="bi bi-person-fill"></i>
+        </a>
       </div>
+      <div id="pageContent"></div>
     </footer>
 
     <script src="darkMode.js"></script>

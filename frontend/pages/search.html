@@ -62,25 +62,36 @@
     <!-- Footer Navigation -->
     <footer class="footer">
       <div class="container d-flex justify-content-around">
-        <a href="?page=home" onclick="loadPage('home')" class="footer-icon"
-          ><i class="bi bi-house-door-fill"></i
-        ></a>
-        <a href="?page=search" onclick="loadPage('search')" class="footer-icon"
-          ><i class="bi bi-search-heart-fill"></i
-        ></a>
         <a
-          href="?page=addpost"
-          onclick="loadPage('addpost')"
+          href="home.html?page=home"
           class="footer-icon"
-          ><i class="bi bi-plus-circle-fill"></i
-        ></a>
+          onclick="changePage('home'); return false;"
+        >
+          <i class="bi bi-house-door-fill"></i>
+        </a>
         <a
-          href="?page=profile"
-          onclick="loadPage('profile')"
+          href="home.html?page=search"
           class="footer-icon"
-          ><i class="bi bi-person-fill"></i
-        ></a>
+          onclick="changePage('search'); return false;"
+        >
+          <i class="bi bi-search-heart-fill"></i>
+        </a>
+        <a
+          href="home.html?page=addpost"
+          class="footer-icon"
+          onclick="changePage('addpost'); return false;"
+        >
+          <i class="bi bi-plus-circle-fill"></i>
+        </a>
+        <a
+          href="home.html?page=profile"
+          class="footer-icon"
+          onclick="changePage('profile'); return false;"
+        >
+          <i class="bi bi-person-fill"></i>
+        </a>
       </div>
+      <div id="pageContent"></div>
     </footer>
 
     <!-- JavaScript -->

@@ -32,36 +32,40 @@
       </div>
     </div>
 
-    <!-- Report Form Section -->
-    <div class="container py-4">
-      <h2 class="text-center">Report</h2>
-      <p class="text-center">What type of issue are you reporting?</p>
-      <form id="reportForm" class="text-center">
-        <div class="mb-3">
-          <label class="d-block"
-            ><input type="radio" name="issue" value="Advertising" />
-            Advertising</label
-          >
-          <label class="d-block"
-            ><input type="radio" name="issue" value="Privacy" /> Privacy</label
-          >
-          <label class="d-block"
-            ><input type="radio" name="issue" value="Spam" /> Spam</label
-          >
-          <label class="d-block"
-            ><input type="radio" name="issue" value="Sexual" /> Sexual</label
-          >
-          <label class="d-block"
-            ><input type="radio" name="issue" value="Sensitive Media" />
-            Sensitive Media</label
-          >
-          <label class="d-block"
-            >Other: <input type="text" name="other" class="form-control"
-          /></label>
-        </div>
-        <button type="submit" class="btn btn-danger">Submit</button>
-      </form>
-    </div>
+    <!-- Footer Navigation -->
+    <footer class="footer">
+      <div class="container d-flex justify-content-around">
+        <a
+          href="home.html?page=home"
+          class="footer-icon"
+          onclick="changePage('home'); return false;"
+        >
+          <i class="bi bi-house-door-fill"></i>
+        </a>
+        <a
+          href="home.html?page=search"
+          class="footer-icon"
+          onclick="changePage('search'); return false;"
+        >
+          <i class="bi bi-search-heart-fill"></i>
+        </a>
+        <a
+          href="home.html?page=addpost"
+          class="footer-icon"
+          onclick="changePage('addpost'); return false;"
+        >
+          <i class="bi bi-plus-circle-fill"></i>
+        </a>
+        <a
+          href="home.html?page=profile"
+          class="footer-icon"
+          onclick="changePage('profile'); return false;"
+        >
+          <i class="bi bi-person-fill"></i>
+        </a>
+      </div>
+      <div id="pageContent"></div>
+    </footer>
 
     <!-- Popup Confirmation -->
     <div id="popup" class="popup hidden text-center">
