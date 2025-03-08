@@ -31,7 +31,7 @@
     <div id="headerContainer"></div>
 
     <!-- Form Section -->
-    <form id="addPostForm" class="container py-4">
+    <form id="addPostForm" onsubmit="return false;" class="container py-4">
       <!-- NAME -->
       <div class="mb-3">
         <label for="nameInput" class="form-label">NAME</label>
@@ -91,7 +91,9 @@
 
       <!-- POST BUTTON -->
       <div class="d-flex justify-content-start">
-        <button id="postButton" class="btn custom-btn">POST</button>
+        <button id="submitBtn" class="btn custom-btn" type="submit">
+          POST
+        </button>
       </div>
     </form>
 

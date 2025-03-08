@@ -95,13 +95,74 @@ textarea.custom-input {
 [data-theme="light"] {
   --background-color: #ffffff;
   --text-color: #333;
-  --primary-color: #00bcd4;
-  --secondary-color: #008c9e;
+  --primary-color: #23DFCF;
+  --secondary-color: #23DFCF;
 }
 
 [data-theme="dark"] {
   --background-color: #ffffff;
   --text-color: #e0e0e0;
-  --primary-color: #00bcd4;
-  --secondary-color: #008c9e;
+  --primary-color: #23DFCF;
+  --secondary-color: #23DFCF;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  color: #333;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.toast-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: #36d1dc;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.btn-primary:hover {
+  background-color: #2bb3b8;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

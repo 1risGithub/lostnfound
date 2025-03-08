@@ -110,7 +110,23 @@ function switchPage(page) {
     container.innerHTML = `<h2 style="color: red;">❌ Oops! Page Not Found</h2>`;
   }
 
+  // ✅ Update active footer icon
   setActiveNavLink(page);
+}
+
+// ==========================
+// Set active footer icon
+// ==========================
+function setActiveNavLink(page) {
+  document.querySelectorAll(".footer-icon").forEach((icon) => {
+    icon.classList.remove("active");
+  });
+
+  // ✅ เช็ก ID ให้ตรงกับชื่อ `page`
+  const activeLink = document.getElementById(`${page}Link`);
+  if (activeLink) {
+    activeLink.classList.add("active");
+  }
 }
 
 // ==========================
@@ -125,20 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
   history.replaceState({ page }, "", `?page=${page}`);
   switchPage(page);
 });
-
-// ==========================
-// Set active footer icon
-// ==========================
-function setActiveNavLink(page) {
-  document.querySelectorAll(".footer-icon").forEach((icon) => {
-    icon.classList.remove("active");
-  });
-
-  const activeLink = document.getElementById(`${page}Link`);
-  if (activeLink) {
-    activeLink.classList.add("active");
-  }
-}
 
 // ==========================
 // Change page without reload
