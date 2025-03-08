@@ -1,148 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundify - Profile</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-    
-   
-    <link rel="stylesheet" href="design.css">
-    <link rel="stylesheet" href="addDesign.css">
-    <link rel="stylesheet" href="designset.css">
-    <link rel="stylesheet" href="profile.css">
-    <link rel="stylesheet" href="design_login.css">
-    
-    
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" charset="UTF-8"></script>
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-        <link rel="stylesheet" href="design_login.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-   <!-- Include your custom Calendar -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> 
-
-</head>
-
-<body class="body">
-    <div class="foundify" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <a style="flex-grow: 1; text-align: center;">Foundify</a>
-        
-            <label class="switch">
-                <input type="checkbox" id="toggleMode">
-                <span class="slider"></span>
-            </label>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/global.css" />
+    <link rel="stylesheet" href="../assets/css/profile.css" />
+    <link rel="stylesheet" href="../assets/css/darkmode.css" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <div class="header">
+      <a class="app-title">Foundify</a>
+      <div class="header-right">
+        <label class="switch">
+          <input type="checkbox" id="toggleMode" />
+          <span class="slider"></span>
+        </label>
+      </div>
     </div>
 
-    <div class="wrapper" id="profilepage">
-        <div class="profile-pic">
-            <img id="profileImage" src="https://i.pravatar.cc/100" alt="Profile Picture">
-            <label for="fileUpload" class="edit-icon">
-                <img id="iconup" src="https://cdn-icons-png.flaticon.com/512/711/711191.png" alt="Camera Icon" width="24" height="24">
-            </label>
-            <input type="file" id="fileUpload" accept="image/*">
-        </div>
-        <h1>User Profile</h1>
-        <p id="profile-info"></p>
-        <span id="userNameDisplay">User</span>
-        <button id="changeNameButton" style="border: none; background: none; cursor: pointer;">
-            ✏️
+    <!-- Profile Section -->
+    <div class="container text-center py-4">
+      <div class="profile-pic">
+        <img
+          id="profileImage"
+          src="https://i.pravatar.cc/100"
+          alt="Profile Picture"
+          class="rounded-circle"
+        />
+        <label for="fileUpload" class="edit-icon">
+          <i class="bi bi-camera-fill"></i>
+        </label>
+        <input type="file" id="fileUpload" accept="image/*" hidden />
+      </div>
+      <h1 class="mt-3">User Profile</h1>
+      <p id="profile-info"></p>
+      <div class="d-flex justify-content-center align-items-center">
+        <span id="userNameDisplay" class="fw-bold">User</span>
+        <button id="changeNameButton" class="btn btn-light ms-2">
+          <i class="bi bi-pencil-fill"></i>
         </button>
-
-
-        <!-- <div class="profile-pic-container">
-            <img id="profile-pic" src="/image/loco_set.jpg" alt="Profile Picture">
-        </div> -->
-
+      </div>
     </div>
 
-<footer class="footer">
-    <div class="container d-flex justify-content-around d-flex2">
-        <a href="home.html" id="homeLink" class="footer-icon"><i class="bi bi-house-door-fill"></i></a>
-        <a href="search.html" id="searchLink" class="footer-icon"><i class="bi bi-search-heart-fill"></i></a>
-        <a href="add.html" id="addLink" class="footer-icon"><i class="bi bi-plus-circle-fill"></i></a>
-        <a href="signup_login.html" id="setLink" class="footer-icon"><i class="bi bi-person-fill"></i></a>
-    </div>
-</footer>
+    <!-- Footer Navigation -->
+    <footer class="footer">
+      <div class="container d-flex justify-content-around">
+        <a href="?page=home" onclick="loadPage('home')" class="footer-icon"
+          ><i class="bi bi-house-door-fill"></i
+        ></a>
+        <a href="?page=search" onclick="loadPage('search')" class="footer-icon"
+          ><i class="bi bi-search-heart-fill"></i
+        ></a>
+        <a
+          href="?page=addpost"
+          onclick="loadPage('addpost')"
+          class="footer-icon"
+          ><i class="bi bi-plus-circle-fill"></i
+        ></a>
+        <a
+          href="?page=profile"
+          onclick="loadPage('profile')"
+          class="footer-icon"
+          ><i class="bi bi-person-fill"></i
+        ></a>
+      </div>
+    </footer>
 
-    <script src="script.js"></script>
-    <script src="footer.js"></script>
-    <script src="darkMode.js"></script>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/darkmode.js" defer></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // โหลดข้อมูลจาก localStorage
-            const name = localStorage.getItem("name") || "User";
-            const username = localStorage.getItem("username") || "Unknown";
-            const email = localStorage.getItem("email") || "Not provided";
-            const profileImage = localStorage.getItem("profileImage");
-        
-            // แสดงผลข้อมูล
-            document.getElementById("userNameDisplay").textContent = username;
-            document.getElementById("profile-info").innerHTML = `Name: ${name}<br>Email: ${email}`;
-            
-            if (profileImage) {
-                document.getElementById("profileImage").src = profileImage;
-            }
-        
-            // ฟังก์ชันเปลี่ยนรูปโปรไฟล์
-            document.getElementById("fileUpload").addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.getElementById("profileImage").src = e.target.result;
-                        localStorage.setItem("profileImage", e.target.result);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        
-            // ฟังก์ชันเปลี่ยนชื่อผู้ใช้
-            document.getElementById("changeNameButton").addEventListener("click", function () {
-                let nameDisplay = document.getElementById('userNameDisplay');
-    
-    // สร้าง input element
-    let input = document.createElement('input');
-    input.type = "text";
-    input.value = nameDisplay.textContent;
-    input.id = "editUserName";
-    input.style.fontSize = "inherit";
-    input.style.border = "1px solid #ccc";
-    input.style.padding = "2px 5px";
-    input.style.width = "auto";
+      document.addEventListener("DOMContentLoaded", function () {
+        const name = localStorage.getItem("name") || "User";
+        const username = localStorage.getItem("username") || "Unknown";
+        const email = localStorage.getItem("email") || "Not provided";
+        const profileImage = localStorage.getItem("profileImage");
 
-    // แทนที่ <span> ด้วย <input>
-    nameDisplay.replaceWith(input);
-    input.focus();
-
-    // เมื่อกด Enter หรือคลิกออกนอกช่อง input
-    input.addEventListener("blur", saveName);
-    input.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            saveName();
+        document.getElementById("userNameDisplay").textContent = username;
+        document.getElementById(
+          "profile-info"
+        ).innerHTML = `Name: ${name}<br>Email: ${email}`;
+        if (profileImage) {
+          document.getElementById("profileImage").src = profileImage;
         }
-    });
 
-    function saveName() {
-        let newName = input.value.trim() ; //
+        document
+          .getElementById("fileUpload")
+          .addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                document.getElementById("profileImage").src = e.target.result;
+                localStorage.setItem("profileImage", e.target.result);
+              };
+              reader.readAsDataURL(file);
+            }
+          });
 
-        // สร้าง <span> ใหม่แทนที่ <input>
-        let newSpan = document.createElement('span');
-        newSpan.id = "userNameDisplay";
-        newSpan.textContent = newName;
+        document
+          .getElementById("changeNameButton")
+          .addEventListener("click", function () {
+            let nameDisplay = document.getElementById("userNameDisplay");
+            let input = document.createElement("input");
+            input.type = "text";
+            input.value = nameDisplay.textContent;
+            input.id = "editUserName";
+            input.classList.add("form-control");
+            input.style.width = "auto";
 
-        input.replaceWith(newSpan);
-    }
+            nameDisplay.replaceWith(input);
+            input.focus();
+
+            input.addEventListener("blur", saveName);
+            input.addEventListener("keypress", function (event) {
+              if (event.key === "Enter") {
+                saveName();
+              }
             });
-        });
-        </script>
-</body>
 
-
+            function saveName() {
+              let newName = input.value.trim();
+              let newSpan = document.createElement("span");
+              newSpan.id = "userNameDisplay";
+              newSpan.textContent = newName;
+              newSpan.classList.add("fw-bold");
+              input.replaceWith(newSpan);
+              localStorage.setItem("username", newName);
+            }
+          });
+      });
+    </script>
+  </body>
 </html>
