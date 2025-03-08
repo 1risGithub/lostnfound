@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundify - Report</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+        <!-- Include your custom CSS -->
+        <link rel="stylesheet" href="design.css">
+        <link rel="stylesheet" href="addDesign.css">
+        <link rel="stylesheet" href="designset.css">
+        <link rel="stylesheet" href="report.css">
+</head>
+<body>
+    <div class="foundify" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <a style="flex-grow: 1; text-align: center;">Foundify</a>
+        
+            <label class="switch">
+                <input type="checkbox" id="toggleMode">
+                <span class="slider"></span>
+            </label>
+    </div>
+    <div class="report">
+    <div class="container2">
+        <h2>Report</h2>
+        <p>What type of issue are you reporting?</p>
+        <form id="reportForm">
+            <label><input type="radio" name="issue" value="Advertising"> Advertising</label>
+            <label><input type="radio" name="issue" value="Privacy"> Privacy</label>
+            <label><input type="radio" name="issue" value="Spam"> Spam</label>
+            <label><input type="radio" name="issue" value="Sexual"> Sexual</label>
+            <label><input type="radio" name="issue" value="Sensitive Media"> Sensitive Media</label>
+            <label>Other: <input type="text" name="other"></label>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div id="popup" class="popup hidden">
+        <p><strong>Thank you !!</strong></p>
+        <p>Foundify will carefully review your report</p>
+        <button onclick="goHome()">Go to home</button>
+    </div>
+
+</div>
+<footer class="footer">
+    <div class="container d-flex justify-content-around d-flex2">
+        <a href="home.html" id="homeLink" class="footer-icon"><i class="bi bi-house-door-fill"></i></a>
+        <a href="search.html" id="searchLink" class="footer-icon"><i class="bi bi-search-heart-fill"></i></a>
+        <a href="add.html" id="addLink" class="footer-icon"><i class="bi bi-plus-circle-fill"></i></a>
+        <a href="signup_login.html" id="setLink" class="footer-icon"><i class="bi bi-person-fill"></i></a>
+    </div>
+</footer>    
+<script>
+        document.getElementById('reportForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('popup').classList.remove('hidden');
+        });
+        function goHome() {
+            window.location.href = 'home.html';
+        }
+    </script>
+
+<script src="darkMode.js"></script>
+
+</body>
+</html>

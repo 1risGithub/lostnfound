@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+
+     <!-- Include Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <!-- Include your custom CSS -->
+    <link rel="stylesheet" href="design.css">
+    <link rel="stylesheet" href="addDesign.css">
+
+</head>
+
+<body>
+
+  <div class="foundify2" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+    <i class="bi bi-chevron-left" onclick="window.history.back();" style="cursor: pointer;"></i>
+    <a style="flex-grow: 1; text-align: center; margin: 0;">Foundify</a>
+    <i class="bi bi-flag-fill" onclick="window.location.href='report.html';" style="margin-left: auto; padding-right: 20px;"></i>
+  </div>
+    
+    <div style="padding: 20px;">
+        <div  id="postTitle" style="font-size: 40px; font-weight: bold; padding-top: 100px; padding-bottom : 30px;"></div>
+
+        <div class="card backgroundCard" style=" max-width: 100%; border-radius: 15px; padding: 20px;">
+            <img id="postImage" class="card-img-top" style="background-color: transparent; padding: 20px; border-radius: 30px;" alt="Item Image">
+            <div class="card-body">
+                
+              <h2 class="card-title">Description</h2>
+              <p id="postSubtitle" class="card-title">Loading...</p>
+                    
+                    <div class="font">
+                        <i class="bi bi-calendar-fill" style="margin-right: 5px; color: rgba(5, 223, 209, 0.829)"></i>
+                        <span id="postDate">Loading...</span>
+                    </div>
+                    
+                    <div class="font">
+                        <i class="bi bi-geo-alt-fill" style="margin-right: 5px;color: rgba(5, 223, 209, 0.829)"></i>
+                        <span id="postLocation">Loading...</span>
+                    </div>
+
+                     <!-- เพิ่มวันที่และเวลาโพสต์ (โพสต์เมื่อ) -->
+                    <div id="postPostedDateTime" class="my-textPost">
+                      <!-- วันที่และเวลาโพสต์จะแสดงที่นี่ -->
+                  </div>
+
+                    <div id="app" style="padding-top: 20px; margin-bottom: 30px;">
+                        <button id="contactButton">Contact</button>
+                    
+                        <div id="contactBox" class="contact-box">
+                          <button class="hide-button" onclick="toggleContact()">Hide</button>
+                          <div style="font-size: 20px;"><strong>Contact</strong></div>
+                          <div>Email: founder@example.com</div>
+                        </div>
+                    
+                        <div class="backdrop" id="backdrop"></div>
+                        <div class="dialog background" id="dialog">
+                          <h2>Please Log in</h2>
+                          <p>to view contact information.</p>
+                          <button onclick="goToLogin()">Go to Account for Log In</button>
+                        </div>
+                      </div>
+                    
+          </div>
+    </div>
+    <footer class="footer">
+      <div class="container d-flex justify-content-around d-flex2">
+          <a href="home.html" id="homeLink" class="footer-icon"><i class="bi bi-house-door-fill"></i></a>
+          <a href="search.html" id="searchLink" class="footer-icon"><i class="bi bi-search-heart-fill"></i></a>
+          <a href="add.html" id="addLink" class="footer-icon"><i class="bi bi-plus-circle-fill"></i></a>
+          <a href="signup_login.html" id="setLink" class="footer-icon"><i class="bi bi-person-fill"></i></a>
+      </div>
+  </footer>
+
+     <!-- Link with index.html -->
+    <script>
+
+
+
+      function getQueryParam(param) {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get(param) || 'ข้อมูลไม่พบ';
+      }
+  
+      document.addEventListener("DOMContentLoaded", function() {
+          document.getElementById("postImage").src = "/image/" + getQueryParam("image");
+          document.getElementById("postTitle").textContent = getQueryParam("title");
+          document.getElementById("postSubtitle").textContent = getQueryParam("subtitle");
+          document.getElementById("postDate").textContent = getQueryParam("date");
+          document.getElementById("postLocation").textContent = getQueryParam("location");
+     
+          
+          // แสดงวันที่และเวลาที่โพสต์
+    const postedDateTime = getQueryParam("postedDateTime"); // วันที่และเวลา
+    document.getElementById("postPostedDateTime").innerHTML = `
+        <i class="bi bi-clock-fill" style="margin-right: 5px;"></i> โพสต์เมื่อ: ${postedDateTime}
+    `;
+});
+
+  </script>
+
+   <!-- Contact Button -->
+  <script>
+    const isLoggedIn = false; // เปลี่ยนเป็น false ถ้าต้องการทดสอบแบบไม่ได้ล็อกอิน
+    const contactButton = document.getElementById('contactButton');
+    const contactBox = document.getElementById('contactBox');
+    const dialog = document.getElementById('dialog');
+    const backdrop = document.getElementById('backdrop');
+
+    function toggleContact() {
+      const isVisible = contactBox.classList.contains('active');
+      contactBox.classList.toggle('active');
+      contactButton.style.display = isVisible ? 'inline-block' : 'none';
+    }
+
+    function showDialog() {
+      dialog.classList.add('active');
+      backdrop.classList.add('active');
+    }
+
+    function hideDialog() {
+      dialog.classList.remove('active');
+      backdrop.classList.remove('active');
+    }
+
+    function goToLogin() {
+      window.location.href = 'signup_login.html';
+      hideDialog();
+    }
+
+    backdrop.addEventListener('click', hideDialog);
+
+    if (isLoggedIn) {
+      contactButton.onclick = toggleContact;
+    } else {
+      contactButton.textContent = 'Request Founder Contact';
+      contactButton.onclick = showDialog;
+    }
+    
+
+     // Footer active link script
+     const currentPage = window.location.pathname.split("/").pop(); // ตรวจสอบชื่อไฟล์หน้าเว็บปัจจุบัน
+            const links = document.querySelectorAll('.footer-icon'); // เลือกไอคอนทั้งหมดใน footer
+
+            links.forEach(link => {
+                link.classList.remove('active'); // ลบคลาส active ออกจากไอคอนทั้งหมด
+            });
+
+            // เปลี่ยนคลาส active สำหรับไอคอนที่ตรงกับหน้าเว็บที่เปิด
+            if (currentPage === 'home.html') {
+                document.getElementById('homeLink').classList.add('active');
+            } else if (currentPage === 'search.html') {
+                document.getElementById('searchLink').classList.add('active');
+            } else if (currentPage === 'add.html') {
+                document.getElementById('addLink').classList.add('active');
+            } else if (currentPage === 'set.html') {
+                document.getElementById('setLink').classList.add('active');
+            }
+  </script>
+      <script src="darkMode.js"></script>
+
+</body>
+</html>
