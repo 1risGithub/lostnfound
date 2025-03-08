@@ -5,10 +5,7 @@ const pool = require("../config/database");
 // ==========================
 // BASE_URL (Auto-Select)
 // ==========================
-const BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://githublostnfound-production.up.railway.app"
-    : "http://localhost:4000";
+const BASE_URL = "http://localhost:4000";
 
 // ==========================
 // Get all reports

@@ -10,6 +10,14 @@ const routes = require("./backend/config/routes"); // Correctly import routes
 
 const app = express();
 
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+const corsOptions = {
+  origin: "http://127.0.0.1:5500",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 // ✅ Middleware
 app.use(cors());
 app.use(express.json());
@@ -18,7 +26,7 @@ app.use(helmet());
 app.use(compression());
 
 // ✅ Routes
-app.use("/api", routes); // Ensure you're using the routes correctly
+app.use("/api", routes()); // Call the routes function and mount it at /api
 
 // ✅ Handle 404 Not Found
 app.use((req, res) => {

@@ -1,4 +1,5 @@
 const BASE_URL = "http://localhost:4000";
+const apiUrl = `${BASE_URL}/api/posts`;
 
 // ==========================
 // Load posts for Home Page
