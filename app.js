@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const routes = require("./backend/config/routes");
-const db = require("./backend/config/database"); // เชื่อมต่อฐานข้อมูล (ถ้ายังไม่มีให้สร้างไฟล์ db.js)
+const connection = require("./backend/config/database");
 
 const app = express();
 
@@ -31,9 +31,9 @@ app.get("/", (req, res) => {
 
 // 5. Example API endpoint at "/API/posts"
 app.get("/API/posts", (req, res) => {
-  const query = "SELECT * FROM posts"; // ปรับชื่อตารางตามที่ใช้จริง
+  const query = "SELECT * FROM items";
 
-  db.query(query, (err, results) => {
+  connection.query(query, (err, results) => {
     if (err) {
       console.error("Error fetching posts:", err);
       return res.status(500).json({ error: "Internal Server Error" });
