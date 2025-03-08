@@ -1,11 +1,11 @@
 /* ----------------- Dark Mode Theme ----------------- */
 [data-theme="dark"] {
-  --background-color: #1e1e1e;
-  --text-color: #ffffff;
-  --footer-bg-color: #292929;
-  --footer-icon-color: #bbb;
+  --background-color: #181818;
+  --text-color: #e0e0e0;
+  --footer-bg-color: #252525;
+  --footer-icon-color: #aaa;
   --footer-icon-hover-color: #24dece;
-  --header-bg-color: #292929;
+  --header-bg-color: #252525;
   --header-text-color: #ffffff;
 }
 
@@ -44,9 +44,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #444;
+  background-color: #eeeeee;
   transition: background-color 0.3s ease;
   border-radius: 36px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .slider::before {
@@ -63,11 +64,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 input:checked + .slider {
-  background-color: #292929;
+  background-color: #3e3e3e;
 }
 
 input:checked + .slider::before {
@@ -77,46 +78,48 @@ input:checked + .slider::before {
 
 /* ----------------- Dark Mode Settings ----------------- */
 [data-theme="dark"] body {
-  background-color: #121212;
+  background-color: var(--background-color);
   color: var(--text-color);
 }
 
-/* Card ใน Dark Mode */
+/* ----------------- Card ใน Dark Mode ----------------- */
 [data-theme="dark"] #cardContainer .card {
-  background-color: #1e1e1e;
+  background-color: #202020;
   color: var(--text-color);
-  border: 1px solid #333333;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  border: 1px solid #444;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 [data-theme="dark"] #cardContainer .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
 }
 
+/* ✅ เพิ่มให้ภาพใน Card ชัดเจนขึ้น */
 [data-theme="dark"] #cardContainer .card-img-top {
-  opacity: 0.85;
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
 [data-theme="dark"] #cardContainer .card-img-top:hover {
-  opacity: 1;
+  opacity: 0.9;
 }
 
+/* ✅ ปรับสีตัวอักษรให้ชัดขึ้น */
 [data-theme="dark"] #cardContainer .card-title {
   color: #ffffff;
 }
 
 [data-theme="dark"] #cardContainer .card-text {
-  color: #cccccc;
+  color: #dcdcdc;
 }
 
-/* Footer ใน Dark Mode */
+/* ----------------- Footer ใน Dark Mode ----------------- */
 [data-theme="dark"] .footer {
   background-color: var(--footer-bg-color);
-  border-top: 1px solid #333333;
-  padding: 10px 0;
+  border-top: 1px solid #444;
+  padding: 12px 0;
 }
 
 [data-theme="dark"] .footer-icon i {
@@ -126,4 +129,15 @@ input:checked + .slider::before {
 
 [data-theme="dark"] .footer-icon:hover i {
   color: var(--footer-icon-hover-color);
+}
+
+/* ✅ เพิ่มความเด่นของ Active Footer Icon */
+[data-theme="dark"] .footer-icon.active i {
+  color: #24dece;
+  transition: color 0.3s ease, font-size 0.2s ease;
+}
+
+/* ----------------- Text muted ใน Dark Mode ----------------- */
+[data-theme="dark"] .text-muted {
+  color: #b0b0b0 !important;
 }

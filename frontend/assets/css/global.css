@@ -71,7 +71,7 @@ body {
 }
 
 .footer-icon {
-  font-size: 32px;
+  font-size: 30px;
   color: var(--footer-icon-color);
   transition: color 0.2s ease;
   padding: 10px 16px;
@@ -106,4 +106,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.text-muted {
+  color: #6c757d !important;
 }

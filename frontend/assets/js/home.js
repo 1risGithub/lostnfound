@@ -5,31 +5,38 @@ const BASE_URL = "http://localhost:4000";
 // ==========================
 async function loadPageContent(page, query = "") {
   const container = document.getElementById("cardContainer");
-  container.innerHTML = "";
+  container.innerHTML = ""; // Clear previous content
 
   try {
     if (page === "home" || page === "search") {
-      // ✅ ถ้าเป็น home หรือ search → ดึงข้อมูลจาก API
+      // ✅ If page is "home" or "search", fetch data from API
       const endpoint = query
         ? `${BASE_URL}/api/search?q=${encodeURIComponent(query)}`
         : `${BASE_URL}/api/posts`;
 
+      console.log(`📥 Fetching data from: ${endpoint}`);
       const res = await fetch(endpoint);
       if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
       const posts = await res.json();
 
+      // ✅ If no data found
       if (posts.length === 0) {
-        container.innerHTML = `<h5>No results found for "${query}"</h5>`;
+        container.innerHTML = `
+          <div class="text-center mt-4">
+            <h5>No results found for "${query}" 😢</h5>
+          </div>
+        `;
         return;
       }
 
+      // ✅ Render each post in a Bootstrap card
       posts.forEach((post) => {
         const imageUrl = post.image
           ? `${BASE_URL}/uploads/${
               post.image
             }?timestamp=${new Date().getTime()}`
-          : "";
+          : ""; // Handle missing image
 
         const formattedDate = post.date
           ? new Date(post.date).toLocaleDateString("en-GB", {
@@ -43,11 +50,27 @@ async function loadPageContent(page, query = "") {
           <div class="col-12 col-sm-6 col-md-4 col-lg-6">
             <div class="card h-100">
               <div class="row g-0">
-                <div class="col-12 col-lg-4" style="padding-left: 10px;">
+                <div class="col-12 col-lg-4" style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 10px;
+                ">
                   ${
                     post.image
-                      ? `<img src="${imageUrl}" class="card-img-top" alt="${post.name}" style="object-fit: cover; width: 100%; max-height: 389px;">`
-                      : `<div class="card-img-top bg-light" style="height: 200px; display: flex; justify-content: center; align-items: center;">No image available</div>`
+                      ? `<img src="${imageUrl}" class="card-img-top" alt="${post.name}" 
+                          style="object-fit: contain; width: 100%; max-height: 389px; 
+                          padding: 5px; border-radius: 12px; border: 2px solid #ddd; 
+                          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9;">`
+                      : `<div class="card-img-top bg-light" style="
+                          height: 200px; 
+                          display: flex; 
+                          justify-content: center; 
+                          align-items: center;
+                          border-radius: 12px;
+                          border: 2px solid #ddd;
+                          background-color: #f9f9f9;
+                        ">No image available</div>`
                   }
                 </div>
                 <div class="col-12 col-lg-8">
@@ -61,10 +84,12 @@ async function loadPageContent(page, query = "") {
             </div>
           </div>
         `;
+
         container.innerHTML += card;
       });
     } else {
-      // ✅ ถ้าเป็น add หรือ profile → โหลดไฟล์ HTML
+      // ✅ If it's a static page (add or profile), load HTML file
+      console.log(`📄 Loading: ../pages/${page}.html`);
       const response = await fetch(`../pages/${page}.html`);
       if (!response.ok) throw new Error(`Failed to load ${page}.html`);
 
@@ -86,18 +111,17 @@ function switchPage(page) {
   container.innerHTML = "";
 
   if (page === "home") {
-    loadPageContent("../pages/home.html");
+    loadPageContent("home");
   } else if (page === "search") {
     const query = new URLSearchParams(window.location.search).get("q");
-    loadPageContent("../pages/search.html", query);
+    loadPageContent("search", query);
   } else if (page === "add") {
-    loadPageContent("../pages/addpost.html");
+    loadPageContent("add");
   } else if (page === "profile") {
-    loadPageContent("../pages/profile.html"); // ✅ แก้ path ให้ถูกต้อง
+    loadPageContent("profile");
   } else {
     container.innerHTML = `<h2 style="color: red;">❌ Oops! Page Not Found</h2>`;
   }
-
   setActiveNavLink(page);
 }
 
@@ -105,10 +129,12 @@ function switchPage(page) {
 // 3. Set active footer icon
 // ==========================
 function setActiveNavLink(page) {
+  // Remove 'active' class from all footer icons
   document.querySelectorAll(".footer-icon").forEach((icon) => {
     icon.classList.remove("active");
   });
 
+  // Add 'active' class to the selected page's icon
   const activeLink = document.getElementById(`${page}Link`);
   if (activeLink) {
     activeLink.classList.add("active");
@@ -124,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   console.log(`🚀 Initial page: ${page}`);
 
-  // ✅ Use replaceState for initial load
   history.replaceState({ page }, "", `?page=${page}`);
   switchPage(page);
 });
@@ -136,7 +161,6 @@ function loadPage(page) {
   const currentPage = new URLSearchParams(window.location.search).get("page");
 
   if (currentPage !== page) {
-    // ✅ Push new state only if different from current state
     history.pushState({ page }, "", `?page=${page}`);
     switchPage(page);
   }
