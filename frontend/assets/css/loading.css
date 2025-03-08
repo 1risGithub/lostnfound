@@ -13,9 +13,12 @@ html {
   height: 100%; /* background full-screen */
   margin: 0;
   font-family: "Red Rose", Arial, sans-serif;
-  background: linear-gradient(135deg, #23DFCF, #ECFFFD); /* Background Gradient */
+  background: linear-gradient(
+    135deg,
+    #23dfcf,
+    #ecfffd
+  ); /* Background Gradient */
 }
-
 
 /* Loading Screen */
 .loading-screen {
@@ -28,11 +31,12 @@ html {
 }
 
 .logo {
-  width: 120px;
+  width: 200px;
   margin-bottom: 20px;
 }
 
 .spinner-border {
+  margin-bottom: 20px;
   width: 3rem;
   height: 3rem;
 }
