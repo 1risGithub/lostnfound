@@ -1,4 +1,7 @@
-const BASE_URL = "http://localhost:4000";
+const BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:4000"
+    : "https://githublostnfound-production.up.railway.app";
 
 // ==========================
 // Load posts for Home Page

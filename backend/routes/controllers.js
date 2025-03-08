@@ -1,9 +1,9 @@
-const connection = require("./database");
+const pool = require("./database");
 
 async function searchPosts(req, res) {
   const query = req.query.q;
   try {
-    const [results] = await connection.query(
+    const [results] = await pool.query(
       `SELECT * FROM items WHERE name LIKE ? OR description LIKE ?`,
       [`%${query}%`, `%${query}%`]
     );

@@ -6,22 +6,13 @@ const helmet = require("helmet");
 const compression = require("compression");
 require("dotenv").config();
 
-const { PORT } = require("./backend/config/config");
-const postRoutes = require("./backend/routes/posts");
+const { PORT } = require("./config");
+const routes = require("./routes");
 
 const app = express();
 
-const uploadsPath = path.join(__dirname, "backend", "uploads");
-
-app.use(
-  "/uploads",
-  express.static(uploadsPath, {
-    setHeaders: (res, path, stat) => {
-      res.set("Access-Control-Allow-Origin", "*");
-      res.set("Cache-Control", "no-store");
-    },
-  })
-);
+// ✅ Set up the path for uploads folder
+const uploadsPath = path.join(__dirname, "uploads");
 
 // ✅ Middleware
 app.use(cors());
@@ -30,8 +21,19 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(compression());
 
-// ✅ Routes
-app.use("/api/posts", postRoutes);
+// ✅ Static route for serving uploads
+app.use(
+  "/uploads",
+  express.static(uploadsPath, {
+    setHeaders: (res) => {
+      res.set("Access-Control-Allow-Origin", "*");
+      res.set("Cache-Control", "no-store");
+    },
+  })
+);
+
+// ✅ Use Routes
+app.use("/api", routes);
 
 // ✅ Handle 404 Not Found
 app.use((req, res) => {

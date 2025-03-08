@@ -2,30 +2,59 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../config/database");
 
-// 👉 ALL
+// ==========================
+// BASE_URL (Auto-Select)
+// ==========================
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://githublostnfound-production.up.railway.app"
+    : "http://localhost:4000";
+
+// ==========================
+// Get all reports
+// ==========================
 router.get("/", async (req, res) => {
   try {
-    const [posts] = await pool.query(
-      "SELECT * FROM items ORDER BY created_at DESC"
+    const [reports] = await pool.query(
+      "SELECT id, name, image, description, location, post_by, created_at FROM items ORDER BY created_at DESC"
     );
-    res.json(posts);
+
+    reports.forEach((report) => {
+      if (report.image) {
+        report.image = `${BASE_URL}${report.image}`;
+      }
+    });
+
+    console.log("✅ Reports:", reports);
+    res.json(reports);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch posts" });
+    console.error("🔥 Error fetching reports:", err.message);
+    res.status(500).json({ error: "Failed to fetch reports" });
   }
 });
 
-// 👉 ID
+// ==========================
+// Get report by ID
+// ==========================
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const [post] = await pool.query("SELECT * FROM items WHERE id = ?", [id]);
-    if (post.length) {
-      res.json(post[0]);
+    const [report] = await pool.query(
+      "SELECT id, name, image, description, location, post_by, created_at FROM items WHERE id = ?",
+      [id]
+    );
+
+    if (report.length) {
+      if (report[0].image) {
+        report[0].image = `${BASE_URL}${report[0].image}`;
+      }
+      res.json(report[0]);
     } else {
-      res.status(404).json({ error: "Post not found" });
+      res.status(404).json({ error: "Report not found" });
     }
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch post" });
+    console.error("🔥 Error fetching report:", err.message);
+    res.status(500).json({ error: "Failed to fetch report" });
   }
 });
 

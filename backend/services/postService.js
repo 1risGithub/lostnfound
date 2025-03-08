@@ -1,14 +1,12 @@
-const connection = require("../config/database");
+const pool = require("../config/database");
 
 const getAllPosts = async () => {
-  const [posts] = await connection.query("SELECT * FROM items");
+  const [posts] = await pool.query("SELECT * FROM items");
   return posts;
 };
 
 const getPostById = async (id) => {
-  const [post] = await connection.query("SELECT * FROM items WHERE id = ?", [
-    id,
-  ]);
+  const [post] = await pool.query("SELECT * FROM items WHERE id = ?", [id]);
   return post[0];
 };
 
