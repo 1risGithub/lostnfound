@@ -15,11 +15,24 @@ async function loadPosts() {
 
     posts.forEach((post) => {
       const card = `
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">${post.title}</h5>
-            <p class="card-text">${post.description}</p>
-            <small class="text-muted">${post.date}</small>
+        <div class="col-md-4">
+          <div class="card h-100">
+            ${
+              post.image
+                ? `<img src="${post.image}" class="card-img-top" alt="${post.name}">`
+                : ""
+            }
+            <div class="card-body">
+              <h5 class="card-title">${post.name || "No title"}</h5>
+              <p class="card-text">${
+                post.description || "No description available."
+              }</p>
+              <small class="text-muted">${
+                post.date
+                  ? new Date(post.date).toLocaleDateString()
+                  : "Unknown date"
+              }</small>
+            </div>
           </div>
         </div>
       `;
@@ -102,16 +115,6 @@ function loadPage(page) {
 window.addEventListener("popstate", (event) => {
   if (event.state && event.state.page) {
     console.log(`🔙 Back/Forward to: ${event.state.page}`);
-
-    // If not on home page, redirect to home page
-    if (event.state.page !== "home") {
-      history.replaceState({ page: "home" }, "", "?page=home");
-      switchPage("home");
-    } else {
-      // ✅ Make setActiveNavLink work faster with setTimeout.
-      setTimeout(() => {
-        switchPage(event.state.page);
-      }, 10); // ✅ A slight delay to allow the browser to update the state first.
-    }
+    switchPage(event.state.page); // ✅ ให้เปลี่ยนหน้าได้ทุกหน้า ไม่จำกัดเฉพาะหน้า home
   }
 });

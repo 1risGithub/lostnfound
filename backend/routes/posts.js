@@ -1,12 +1,11 @@
-// routes/posts.js
 const express = require("express");
 const router = express.Router();
-const db = require("../config/database"); // Database connection file
+const { getAllPosts, getPostById } = require("../services/postService");
 
 // Fetch all posts
 router.get("/", async (req, res) => {
   try {
-    const [posts] = await db.query("SELECT * FROM items");
+    const posts = await getAllPosts();
     res.json(posts);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch posts" });
@@ -17,9 +16,9 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const [post] = await db.query("SELECT * FROM items WHERE id = ?", [id]);
-    if (post.length) {
-      res.json(post[0]);
+    const post = await getPostById(id);
+    if (post) {
+      res.json(post);
     } else {
       res.status(404).json({ error: "Post not found" });
     }

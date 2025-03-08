@@ -1,9 +1,10 @@
 const express = require("express");
 const connection = require("./database");
-
 const router = express.Router();
 
-const postsRoutes = require("../api/posts");
+const postsRoutes = require("../routes/posts");
+const contactRoutes = require("../routes/contact");
+const reportsRoutes = require("../routes/reports");
 
 // Example API endpoint at "/api"
 router.get("/", (req, res) => {
@@ -21,5 +22,9 @@ router.get("/posts", (req, res) => {
 
 // Path for `/api/posts`
 router.use("/posts", postsRoutes);
+// Path for `/api/reposts`
+router.use("/reports", reportsRoutes);
+// Path for `/api/contact/:id`
+router.use("/contact", contactRoutes);
 
 module.exports = router;

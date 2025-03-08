@@ -1,52 +1,35 @@
 const express = require("express");
+const morgan = require("morgan");
 const cors = require("cors");
-const path = require("path");
-const routes = require("./backend/config/routes");
-const connection = require("./backend/config/database");
+const helmet = require("helmet");
+const compression = require("compression");
+require("dotenv").config();
+
+const { PORT, CORS_OPTIONS } = require("./backend/config/config");
+const postRoutes = require("./backend/routes/posts");
 
 const app = express();
 
-// 1. Middleware
-app.use(cors());
+// ✅ Middleware
+app.use(cors(CORS_OPTIONS));
 app.use(express.json());
+app.use(morgan("dev"));
+app.use(helmet());
+app.use(compression());
 
-// 2. Serve static files from frontend
-app.use(
-  express.static(path.join(__dirname, "frontend"), {
-    setHeaders: (res, filePath) => {
-      if (filePath.endsWith(".css")) {
-        res.setHeader("Content-Type", "text/css");
-      }
-    },
-  })
-);
+// ✅ Routes
+app.use("/api/posts", postRoutes);
 
-// 3. Serve static files from root directory
-app.use(express.static(__dirname));
-
-// 4. Serve index.html at the root path "/"
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+// ✅ Handle 404 Not Found
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
 });
 
-// 5. Example API endpoint at "/API/posts"
-app.get("/API/posts", (req, res) => {
-  const query = "SELECT * FROM items";
-
-  connection.query(query, (err, results) => {
-    if (err) {
-      console.error("Error fetching posts:", err);
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
-    res.json(results);
-  });
+// ✅ Global Error Handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
 });
 
-// 6. Use routes for "/api"
-app.use("/api", routes);
-
-// 7. Start server
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port: ${PORT}`);
-});
+// ✅ Start server
+app.listen(PORT, () => console.log(`🚀 Server running on port: ${PORT}`));

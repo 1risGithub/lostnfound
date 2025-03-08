@@ -1,14 +1,14 @@
-const mysql = require("mysql2");
-require("dotenv").config({ path: "./backend/config/.env" });
+const mysql = require("mysql2/promise");
 
-const connection = mysql.createConnection(process.env.MYSQL_URL);
-
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to the database:", err);
-    return;
-  }
-  console.log("✅ Connected to the database!");
+const pool = mysql.createPool({
+  uri:
+    process.env.MYSQL_URL ||
+    "mysql://root:cSKvpWezJyVavIilvFdEpQalLALHCxud@nozomi.proxy.rlwy.net:34300/railway",
 });
 
-module.exports = connection;
+pool
+  .getConnection()
+  .then(() => console.log("✅ Connected to the database!"))
+  .catch((err) => console.error("❌ Database connection error:", err));
+
+module.exports = pool;
