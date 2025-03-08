@@ -11,32 +11,48 @@ async function loadPosts() {
     const posts = await res.json();
 
     const container = document.getElementById("cardContainer");
-    container.innerHTML = "";
+    container.innerHTML = ""; // Clear any existing posts
 
     posts.forEach((post) => {
       const imageUrl = post.image
-        ? `${BASE_URL}/uploads/${post.image}`
-        : "https://via.placeholder.com/200"; // ✅ รองรับกรณีไม่มีรูป
+        ? `${BASE_URL}/uploads/${post.image}?timestamp=${new Date().getTime()}`
+        : ""; // If no image, leave it empty
 
       console.log("🖼️ Final Image URL:", imageUrl);
 
+      const formattedDate = post.date
+        ? new Date(post.date).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })
+        : "Unknown date";
+
       const card = `
-        <div class="col-md-4">
-          <div class="card h-100">
-            ${
-              post.image
-                ? `<img src="http://localhost:4000/uploads/${post.image}" class="card-img-top" alt="${post.name}" style="object-fit: cover; height: 200px;">`
-                : `<div class="card-img-top bg-light" style="height: 200px; display: flex; justify-content: center; align-items: center;">Don't have</div>`
-            }
-            <div class="card-body">
-              <h5 class="card-title">${post.name}</h5>
-              <p class="card-text">${post.description}</p>
-              <small class="text-muted">${post.date || "Unknown date"}</small>
-            </div>
+  <div class="col-12 col-sm-6 col-md-4 col-lg-6">
+    <div class="card h-100">
+      <div class="row g-0">
+        <!-- Image Left (Left on large screens, top on small screens) -->
+        <div class="col-12 col-lg-4" style="padding-left: 10px;">
+          ${
+            post.image
+              ? `<img src="${imageUrl}" class="card-img-top" alt="${post.name}" style="object-fit: cover; width: 100%; max-height: 389px;">`
+              : `<div class="card-img-top bg-light" style="height: 200px; display: flex; justify-content: center; align-items: center;">No image available</div>`
+          }
+        </div>
+        <!-- Data Right (Right on large screens, below image on small screens) -->
+        <div class="col-12 col-lg-8">
+          <div class="card-body">
+            <h5 class="card-title">${post.name}</h5>
+            <p class="card-text">${post.description}</p>
+            <small class="text-muted">${formattedDate}</small>
           </div>
         </div>
-      `;
-      container.innerHTML += card;
+      </div>
+    </div>
+  </div>
+`;
+      container.innerHTML += card; // Append the card to the container
     });
   } catch (err) {
     console.error("🔥 Error loading posts:", err.message);

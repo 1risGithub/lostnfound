@@ -52,20 +52,4 @@ const loadPostDetail = async () => {
   }
 };
 
-const reportPost = async (postId, reason) => {
-  try {
-    const res = await fetch("/api/reports", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ item_id: postId, report_text: reason }),
-    });
-
-    if (!res.ok) throw new Error("Failed to report post");
-
-    alert("✅ Report submitted!");
-  } catch (err) {
-    console.error("Failed to report post:", err);
-  }
-};
-
 loadPostDetail();

@@ -1,23 +1,30 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const path = require("path");
 const helmet = require("helmet");
 const compression = require("compression");
 require("dotenv").config();
 
-const { PORT, CORS_OPTIONS } = require("./backend/config/config");
+const { PORT } = require("./backend/config/config");
 const postRoutes = require("./backend/routes/posts");
 
 const app = express();
 
+const uploadsPath = path.join(__dirname, "backend", "uploads");
+
 app.use(
-  cors({
-    origin: "http://127.0.0.1:5500",
+  "/uploads",
+  express.static(uploadsPath, {
+    setHeaders: (res, path, stat) => {
+      res.set("Access-Control-Allow-Origin", "*");
+      res.set("Cache-Control", "no-store");
+    },
   })
 );
 
 // ✅ Middleware
-app.use(cors(CORS_OPTIONS));
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(helmet());
@@ -25,9 +32,6 @@ app.use(compression());
 
 // ✅ Routes
 app.use("/api/posts", postRoutes);
-
-// ✅ Uploads
-app.use("/uploads", express.static(__dirname + "/backend/uploads"));
 
 // ✅ Handle 404 Not Found
 app.use((req, res) => {

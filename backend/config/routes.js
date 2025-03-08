@@ -5,6 +5,7 @@ const router = express.Router();
 const postsRoutes = require("../routes/posts");
 const contactRoutes = require("../routes/contact");
 const reportsRoutes = require("../routes/reports");
+const { searchPosts } = require("../routes/controllers");
 
 // Example API endpoint at "/api"
 router.get("/", (req, res) => {
@@ -26,5 +27,7 @@ router.use("/posts", postsRoutes);
 router.use("/reports", reportsRoutes);
 // Path for `/api/contact/:id`
 router.use("/contact", contactRoutes);
+// Path for `Search API`
+router.get("/api/search", searchPosts);
 
 module.exports = router;
