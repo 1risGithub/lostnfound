@@ -93,8 +93,8 @@ body {
 }
 
 .footer-icon.active {
-  pointer-events: none;
   color: var(--footer-icon-hover-color);
+  pointer-events: none;
 }
 
 /* ----------------- Utility styles ----------------- */

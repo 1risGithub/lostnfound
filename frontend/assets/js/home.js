@@ -59,39 +59,17 @@ function switchPage(page) {
 // 3. Set active footer icon
 // ==========================
 function setActiveNavLink(page) {
-  // ✅ Remove all active states first
+  // ✅ Clear active class from all footer icons
   document.querySelectorAll(".footer-icon").forEach((icon) => {
     icon.classList.remove("active");
   });
 
-  // ✅ Set active state to the current link
+  // ✅ Add active class to the current page link
   const activeLink = document.getElementById(`${page}Link`);
   if (activeLink) {
     activeLink.classList.add("active");
   }
 }
-
-function loadPage(page) {
-  history.pushState({ page }, "", `?page=${page}`);
-
-  // ✅ Reset active state first
-  setActiveNavLink(page);
-
-  // ✅ Load content
-  const contentContainer = document.getElementById("contentContainer");
-  contentContainer.innerHTML = `<h2>${
-    page.charAt(0).toUpperCase() + page.slice(1)
-  } Page</h2>`;
-}
-
-// ✅ Listen to popstate for Back/Forward event
-window.addEventListener("popstate", () => {
-  const page =
-    new URLSearchParams(window.location.search).get("page") || "home";
-
-  // ✅ Reset state first!
-  setActiveNavLink(page);
-});
 
 // ==========================
 // 4. Load initial page state
@@ -125,9 +103,9 @@ window.addEventListener("popstate", (event) => {
   if (event.state && event.state.page) {
     console.log(`🔙 Back/Forward to: ${event.state.page}`);
 
-    // ✅ ให้ setActiveNavLink ทำงานเร็วขึ้นด้วย setTimeout
+    // ✅ Make setActiveNavLink work faster with setTimeout.
     setTimeout(() => {
       switchPage(event.state.page);
-    }, 10); // ✅ Delay เล็กน้อยเพื่อให้ browser อัปเดต state ก่อน
+    }, 10); // ✅ A slight delay to allow the browser to update the state first.
   }
 });
