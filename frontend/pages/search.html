@@ -21,35 +21,42 @@
     <link rel="stylesheet" href="../assets/css/darkmode.css" />
   </head>
   <body>
-    <!-- Header Section -->
-    <label class="switch">
-      <input type="checkbox" id="toggleMode" />
-    </label>
+    <form
+      class="d-flex"
+      role="search"
+      style="width: 100%; padding-top: 100px"
+      method="get"
+    >
+      <div
+        class="input-group"
+        style="width: 100%; display: flex; align-items: center"
+      >
+        <input
+          class="form-control rounded-pill search"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="q"
+          id="searchInput"
+        />
+        <button
+          class="btn btn-outline-success rounded-pill"
+          type="submit"
+          style="
+            border: none;
+            background: none;
+            margin-left: 10px;
+            color: rgb(36, 222, 206);
+          "
+          onmouseover="this.style.backgroundColor='#dcdcdc';"
+          onmouseout="this.style.backgroundColor='';"
+        >
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
 
-    <!-- Search Form Section -->
-    <div class="container py-4">
-      <form class="d-flex" role="search">
-        <div class="input-group w-100">
-          <input
-            class="form-control rounded-pill"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            id="searchInput"
-          />
-          <button
-            class="btn btn-outline-success rounded-pill"
-            type="submit"
-            id="searchButton"
-          >
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Search Results Section -->
-    <div class="container py-4">
+    <div class="container" style="padding-top: 20px; padding-bottom: 80px">
       <div id="searchResults"></div>
     </div>
 
