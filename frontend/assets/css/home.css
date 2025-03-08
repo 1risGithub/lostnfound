@@ -1,0 +1,130 @@
+/* 🌈 General styles */
+body {
+  font-family: "Red Rose", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 🌞 Default Theme (Light Mode) */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --footer-bg-color: #ffffff;
+  --footer-icon-color: #999;
+  --footer-icon-hover-color: #007bff;
+  --header-bg-color: #f8f9fa;
+  --header-text-color: #000000;
+}
+
+/* 🌙 Dark Mode Theme */
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --footer-bg-color: #1e1e1e;
+  --footer-icon-color: #bbb;
+  --footer-icon-hover-color: #1e90ff;
+  --header-bg-color: #1e1e1e;
+  --header-text-color: #ffffff;
+}
+
+/* 🚀 Header styles */
+.header {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+  border-bottom: 1px solid #ddd;
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* 📝 Post Card */
+.post-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.post-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 🔥 Footer styles */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--footer-bg-color);
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer-icon {
+  font-size: 24px;
+  color: var(--footer-icon-color);
+  transition: color 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: var(--footer-icon-hover-color);
+}
+
+.footer-icon.active {
+  color: var(--footer-icon-hover-color);
+}
+
+/* 🌘 Dark Mode Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #ffffff;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider::before {
+  transform: translateX(16px);
+}

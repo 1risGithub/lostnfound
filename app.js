@@ -2,12 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const routes = require("./backend/config/routes");
+const db = require("./backend/config/database"); // เชื่อมต่อฐานข้อมูล (ถ้ายังไม่มีให้สร้างไฟล์ db.js)
 
 const app = express();
 
+// 1. Middleware
 app.use(cors());
 app.use(express.json());
 
+// 2. Serve static files from frontend
 app.use(
   express.static(path.join(__dirname, "frontend"), {
     setHeaders: (res, filePath) => {
@@ -18,18 +21,32 @@ app.use(
   })
 );
 
-// Serve static files from the root directory
+// 3. Serve static files from root directory
 app.use(express.static(__dirname));
 
-// Serve index.html at the root path "/"
+// 4. Serve index.html at the root path "/"
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Use routes for "/api"
+// 5. Example API endpoint at "/API/posts"
+app.get("/API/posts", (req, res) => {
+  const query = "SELECT * FROM posts"; // ปรับชื่อตารางตามที่ใช้จริง
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching posts:", err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+    res.json(results);
+  });
+});
+
+// 6. Use routes for "/api"
 app.use("/api", routes);
 
+// 7. Start server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server running on port: ${PORT}`);
 });

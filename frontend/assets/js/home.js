@@ -1,44 +1,65 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const cardContainer = document.getElementById("cardContainer");
-
-  // Fetch data from API
-  async function loadPosts() {
+// 1. Function to load posts from API
+async function loadPosts() {
     try {
-      const res = await fetch("/API/posts"); // Call API from backend
-      const data = await res.json();
+        const res = await fetch("http://localhost:4000/API/posts"); // เช็ค PORT ให้ตรงกับของ Railway
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
-      cardContainer.innerHTML = ""; // Clear data before displaying
+        const posts = await res.json();
 
-      data.forEach((post) => {
-        const postCard = document.createElement("div");
-        postCard.className = "col-md-4";
-        postCard.innerHTML = `
-                    <div class="post-card">
-                        <img src="${post.image}" alt="${post.title}" />
-                        <div class="p-3">
-                            <h5>${post.title}</h5>
-                            <p>${post.description}</p>
-                            <a href="post.html?id=${post.id}" class="btn btn-primary">View Details</a>
-                        </div>
+        // Clear existing posts before loading
+        const container = document.getElementById("cardContainer");
+        container.innerHTML = "";
+
+        // Render each post as a card
+        posts.forEach((post) => {
+            const card = `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${post.title}</h5>
+                        <p class="card-text">${post.description}</p>
+                        <small class="text-muted">${post.date}</small>
                     </div>
-                `;
-        cardContainer.appendChild(postCard);
-      });
-    } catch (error) {
-      console.error("Error loading posts:", error);
+                </div>
+            `;
+            container.innerHTML += card;
+        });
+    } catch (err) {
+        console.error("Error loading posts:", err);
     }
-  }
+}
 
-  loadPosts(); // Call the data loading function
-});
+// 2. Function to set active class in footer
+function setActiveNavLink() {
+    // Get the path of the current file (e.g., "home.html")
+    const path = window.location.pathname.split("/").pop();
 
-// Highlight active link in footer
-const currentPage = new URLSearchParams(window.location.search).get("page");
+    // Remove active class from all icons
+    document.querySelectorAll('.footer-icon').forEach(icon => {
+        icon.classList.remove('active');
+    });
 
-document.querySelectorAll(".footer-icon").forEach((link) => {
-  if (link.getAttribute("href") === `?page=${currentPage}`) {
-    link.classList.add("active");
-  } else {
-    link.classList.remove("active");
-  }
-});
+    // Set active class based on the current path
+    switch (path) {
+        case 'home.html':
+            document.getElementById('homeLink').classList.add('active');
+            break;
+        case 'search.html':
+            document.getElementById('searchLink').classList.add('active');
+            break;
+        case 'add.html':
+            document.getElementById('addLink').classList.add('active');
+            break;
+        case 'signup_login.html':
+            document.getElementById('setLink').classList.add('active');
+            break;
+    }
+}
+
+// ==========================
+// 3. Event Listeners
+// ==========================
+// Set active footer link on page load
+document.addEventListener('DOMContentLoaded', setActiveNavLink);
+
+// Load posts when opening the Home page
+document.addEventListener('DOMContentLoaded', loadPosts);
