@@ -1,0 +1,100 @@
+/* ----------------- General styles ----------------- */
+@font-face {
+  font-family: "Red Rose";
+  src: url("../src/font/Red_Rose/RedRose-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+body {
+  font-family: "Red Rose";
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ----------------- Default Theme (Light Mode) ----------------- */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --footer-bg-color: #ffffff;
+  --footer-icon-color: #999;
+  --footer-icon-hover-color: #24dece;
+  --header-bg-color: #f8f9fa;
+  --header-text-color: #000000;
+}
+
+/* ----------------- Header styles ----------------- */
+.header {
+  background-color: var(--header-bg-color);
+  color: var(--header-text-color);
+  padding: 40px 30px 30px 30px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-bottom: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.app-title {
+  font-size: 30px;
+  color: var(--header-text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.app-title:hover {
+  color: var(--footer-icon-hover-color);
+}
+
+.header-right {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ----------------- Footer styles ----------------- */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--footer-bg-color);
+  padding: 12px 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-around;
+  border-top: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-icon {
+  font-size: 32px;
+  color: var(--footer-icon-color);
+  transition: color 0.2s ease;
+  padding: 10px 16px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-icon:hover {
+  color: var(--footer-icon-hover-color);
+}
+
+.footer-icon.active {
+  color: var(--footer-icon-hover-color);
+}
+
+/* ----------------- Utility styles ----------------- */
+.hidden {
+  display: none;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

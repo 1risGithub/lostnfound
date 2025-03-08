@@ -1,0 +1,78 @@
+/* ----------------- Dark Mode Theme ----------------- */
+[data-theme="dark"] {
+  --background-color: #1e1e1e;
+  --text-color: #ffffff;
+  --footer-bg-color: #353535;
+  --footer-icon-color: #bbb;
+  --footer-icon-hover-color: #24dece;
+  --header-bg-color: #353535;
+  --header-text-color: #ffffff;
+}
+
+[data-theme="dark"] .app-title {
+  color: var(--header-text-color);
+}
+
+[data-theme="dark"] .app-title:hover {
+  color: var(--footer-icon-hover-color);
+}
+
+[data-theme="dark"] .header {
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .footer {
+  box-shadow: 0 -4px 8px rgba(255, 255, 255, 0.08);
+}
+
+/* ----------------- Dark Mode Toggle Switch ----------------- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 36px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: background-color 0.3s ease;
+  border-radius: 36px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "☀️";
+  font-size: 18px;
+  height: 28px;
+  width: 28px;
+  left: 4px;
+  top: 4px;
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+input:checked + .slider {
+  background-color: #1e1e1e;
+}
+
+input:checked + .slider::before {
+  content: "🌙";
+  transform: translateX(34px);
+}
