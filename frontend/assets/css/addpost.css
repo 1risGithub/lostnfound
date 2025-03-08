@@ -1,0 +1,107 @@
+/* =========================
+  FORM CONTAINER
+========================= */
+#addPostForm {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* =========================
+      LABEL
+  ========================= */
+.form-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+/* =========================
+      INPUT FIELDS
+  ========================= */
+.custom-input,
+textarea.custom-input {
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+}
+
+.custom-input:focus,
+textarea.custom-input:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+}
+
+/* =========================
+      TEXTAREA FIX FOR DARK MODE
+  ========================= */
+textarea.custom-input {
+  min-height: 100px;
+  resize: none;
+}
+
+/* =========================
+      FILE INPUT
+  ========================= */
+#imageInput {
+  padding: 6px;
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+}
+
+#imageInput:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+}
+
+/* =========================
+      BUTTON
+  ========================= */
+.custom-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  width: 150px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+}
+
+.custom-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+#postButton {
+  margin-left: 0;
+}
+
+/* =========================
+      DARK MODE CONFIG
+  ========================= */
+[data-theme="light"] {
+  --background-color: #ffffff;
+  --text-color: #333;
+  --primary-color: #00bcd4;
+  --secondary-color: #008c9e;
+}
+
+[data-theme="dark"] {
+  --background-color: #ffffff;
+  --text-color: #e0e0e0;
+  --primary-color: #00bcd4;
+  --secondary-color: #008c9e;
+}

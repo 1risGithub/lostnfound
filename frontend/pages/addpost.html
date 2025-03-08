@@ -31,64 +31,67 @@
     <div id="headerContainer"></div>
 
     <!-- Form Section -->
-    <form
-      id="addPostForm"
-      class="container d-flex flex-column align-items-center justify-content-center"
-      style="padding-top: 20px"
-    >
-      <div class="col-md-5 mb-3">
-        <label for="nameInput" class="form-label">Name</label>
+    <form id="addPostForm" class="container py-4">
+      <!-- NAME -->
+      <div class="mb-3">
+        <label for="nameInput" class="form-label">NAME</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control custom-input"
           id="nameInput"
           placeholder="Enter name"
           required
         />
       </div>
 
-      <div class="col-md-5 mb-3">
-        <label class="form-label">Image</label>
-        <input type="file" class="form-control" id="imageInput" required />
-      </div>
-
-      <div class="col-md-5 mb-3">
-        <label for="descriptionInput" class="form-label">Description</label>
-        <textarea
-          class="form-control"
-          id="descriptionInput"
-          placeholder="Enter description"
-          rows="3"
-          required
-        ></textarea>
-      </div>
-
-      <div class="col-md-5 mb-3">
-        <label for="datepicker" class="form-label"
-          >Date <i class="bi bi-calendar-fill"></i
-        ></label>
+      <!-- IMAGE -->
+      <div class="mb-3">
+        <label class="form-label">IMAGE</label>
         <input
-          type="text"
-          class="form-control"
-          id="datepicker"
-          placeholder="Select date"
+          type="file"
+          class="form-control custom-input"
+          id="imageInput"
           required
         />
       </div>
 
-      <div class="col-md-5 mb-3">
+      <!-- DESCRIPTION -->
+      <div class="mb-3">
+        <label for="descriptionInput" class="form-label">Description</label>
+        <textarea
+          class="form-control custom-input"
+          id="descriptionInput"
+          placeholder="Enter description"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- DATE -->
+      <div class="mb-3">
+        <label for="datepicker" class="form-label">DATE</label>
+        <input
+          type="date"
+          id="date"
+          class="form-control custom-input"
+          required
+        />
+      </div>
+
+      <!-- LOCATION -->
+      <div class="mb-3">
         <label for="locationInput" class="form-label">Location</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control custom-input"
           id="locationInput"
           placeholder="Enter location"
           required
         />
       </div>
 
-      <div class="col-md-5 mb-3">
-        <button id="postButton" class="btn btn-primary w-100">Post</button>
+      <!-- POST BUTTON -->
+      <div class="d-flex justify-content-start">
+        <button id="postButton" class="btn custom-btn">POST</button>
       </div>
     </form>
 
