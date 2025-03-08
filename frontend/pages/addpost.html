@@ -1,174 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AddForm</title>
-      <!-- Include Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
- 
- 
-     <!-- Include your custom CSS -->
-     <link rel="stylesheet" href="design.css">
-     <link rel="stylesheet" href="addDesign.css">
-     <link rel="stylesheet" href="designset.css">
-     <link rel="stylesheet" href="Thankyou.css">
 
-     <!-- Include your custom Calendar -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <!-- Include Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Include custom CSS -->
+    <link rel="stylesheet" href="design.css" />
+    <link rel="stylesheet" href="addDesign.css" />
+    <link rel="stylesheet" href="designset.css" />
+    <link rel="stylesheet" href="Thankyou.css" />
+
+    <!-- Include Calendar CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>    
- 
-</head>
-<body>
-    <div class="foundify" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <a style="flex-grow: 1; text-align: center;">Foundify</a>
-        
-            <label class="switch">
-                <input type="checkbox" id="toggleMode">
-                <span class="slider"></span>
-            </label>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <div
+      class="foundify d-flex justify-content-between align-items-center w-100"
+    >
+      <a class="text-center flex-grow-1">Foundify</a>
+      <label class="switch">
+        <input type="checkbox" id="toggleMode" />
+        <span class="slider"></span>
+      </label>
     </div>
-   
-    <form id="yourFormId" class="container d-flex flex-column align-items-center justify-content-center was-validated" style="height: 100vh; padding-top: 20px;">
-        <!-- ชื่อ -->
-        <div class="col-md-5 mb-3" style="padding-top: 10px;">
-            <label for="validationCustom01" class="form-label">Name</label>
-            <input type="text" class="form-control formSearch"  id="validationCustom01" value="" placeholder="กุญแจ" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-    
-        <!-- ไฟล์ -->
-        <div class="col-md-5 mb-3" style="padding-top: 10px;">
-            <div style="padding-bottom: 10px;">Image</div>
-            <input type="file" class="form-control formSearch"  aria-label="file example" required>
-            <div class="invalid-feedback">Example invalid form file feedback</div>
-        </div>
-    
-        <!-- คำอธิบาย -->
-        <div class="col-md-5 mb-3" style="padding-top: 10px;">
-            <label for="validationCustom01" class="form-label">Description</label>
-            <input type="text" class="form-control formSearch" id="validationCustom01" value="" placeholder="สีทอง มีพวงกุญแจห้อย" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-    
-        <!-- วันที่ -->
-        <div class="col-md-5 mb-3" style="padding-top: 10px;">
-            <label for="datepicker" class="form-label">
-                Date <i class="bi bi-calendar-fill" style="font-size: 20px; padding-left: 5px; color:rgb(36,222,206);"></i>
-            </label>
-            <input type="text" class="form-control formSearch"   id="datepicker" placeholder="เลือกวันที่" required>
-        </div>
-    
-        <!-- สถานที่พบ -->
-        <div class="col-md-5 mb-3" style="padding-top: 10px;">
-            <label for="validationCustom01" class="form-label">Location</label>
-            <input type="text" class="form-control formSearch"  id="validationCustom01" value="" placeholder="ตึกโหล สจล" required>
-            <div class="valid-feedback">
-                Looks good!
-            </div>
-        </div>
-  
-        <!-- ปุ่ม Post -->
-        <div class="col-md-5 mb-3" style="padding-top: 10px; margin-bottom: 25px;">
-            <div id="app" >
-                <button id="postButton" style="border-radius: 10px; padding: 10px; width: 20%;">Post</button>
-             </div>
-            </div>
-    </div>
-</form>
 
-  <!-- Modal -->
-  <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <!-- Form Section -->
+    <form
+      id="yourFormId"
+      class="container d-flex flex-column align-items-center justify-content-center was-validated"
+      style="height: 100vh; padding-top: 20px"
+    >
+      <div class="col-md-5 mb-3">
+        <label for="nameInput" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nameInput"
+          placeholder="Enter name"
+          required
+        />
+      </div>
+
+      <div class="col-md-5 mb-3">
+        <label class="form-label">Image</label>
+        <input type="file" class="form-control" required />
+      </div>
+
+      <div class="col-md-5 mb-3">
+        <label for="descriptionInput" class="form-label">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="descriptionInput"
+          placeholder="Enter description"
+          required
+        />
+      </div>
+
+      <div class="col-md-5 mb-3">
+        <label for="datepicker" class="form-label"
+          >Date <i class="bi bi-calendar-fill"></i
+        ></label>
+        <input
+          type="text"
+          class="form-control"
+          id="datepicker"
+          placeholder="Select date"
+          required
+        />
+      </div>
+
+      <div class="col-md-5 mb-3">
+        <label for="locationInput" class="form-label">Location</label>
+        <input
+          type="text"
+          class="form-control"
+          id="locationInput"
+          placeholder="Enter location"
+          required
+        />
+      </div>
+
+      <div class="col-md-5 mb-3">
+        <button id="postButton" class="btn btn-primary w-100">Post</button>
+      </div>
+    </form>
+
+    <!-- Modal Section -->
+    <div class="modal fade" id="postModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="Thankyou">
-            <div class="modal-header">
-                <h5 class="modal-title" id="postModalLabel">Thank you</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-header">
+            <h5 class="modal-title">Thank You</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Have a nice day!</p>
+            <div class="button-container">
+              <button id="goToPost" class="btn btn-primary">
+                Go to your Post
+              </button>
+              <a href="home.html" class="btn btn-secondary">Go to Home</a>
             </div>
-            <div class="modal-body">
-                <p>Have a nice day!</p>
-                <div class="button-container">
-                    <button id="goToPost">Go to your Post</button>
-                    <a href="home.html" class="transparent-btn">
-                        Go to Home
-                    </a>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-
-   
-      
-
-      <footer class="footer">
-        <div class="container d-flex justify-content-around d-flex2">
-            <a href="home.html" id="homeLink" class="footer-icon"><i class="bi bi-house-door-fill"></i></a>
-            <a href="search.html" id="searchLink" class="footer-icon"><i class="bi bi-search-heart-fill"></i></a>
-            <a href="add.html" id="addLink" class="footer-icon"><i class="bi bi-plus-circle-fill"></i></a>
-            <a href="signup_login.html" id="setLink" class="footer-icon"><i class="bi bi-person-fill"></i></a>
-        </div>
+    <!-- Footer Navigation -->
+    <footer class="footer">
+      <div class="container d-flex justify-content-around">
+        <a
+          href="?page=home"
+          id="homeLink"
+          onclick="loadPage('home')"
+          class="footer-icon"
+          ><i class="bi bi-house-door-fill"></i
+        ></a>
+        <a
+          href="?page=search"
+          id="searchLink"
+          onclick="loadPage('search')"
+          class="footer-icon"
+          ><i class="bi bi-search-heart-fill"></i
+        ></a>
+        <a
+          href="?page=addpost"
+          id="addLink"
+          onclick="loadPage('addpost')"
+          class="footer-icon"
+          ><i class="bi bi-plus-circle-fill"></i
+        ></a>
+        <a
+          href="?page=profile"
+          id="profileLink"
+          onclick="loadPage('profile')"
+          class="footer-icon"
+          ><i class="bi bi-person-fill"></i
+        ></a>
+      </div>
     </footer>
+
     <script src="darkMode.js"></script>
 
-<script>
-    $(document).ready(function(){
-      $('#datepicker').datepicker({
-        format: 'dd/mm/yyyy', // รูปแบบวันที่
-        autoclose: true, // ปิดปฏิทินอัตโนมัติหลังเลือก
-        todayHighlight: true // ไฮไลต์วันที่ปัจจุบัน
+    <script>
+      $(document).ready(function () {
+        // Initialize date picker
+        $("#datepicker").datepicker({
+          format: "dd/mm/yyyy", // Date format
+          autoclose: true, // Close calendar after selection
+          todayHighlight: true, // Highlight today's date
+        });
       });
-    });
 
-     // Footer active link script
-     const currentPage = window.location.pathname.split("/").pop(); // ตรวจสอบชื่อไฟล์หน้าเว็บปัจจุบัน
-            const links = document.querySelectorAll('.footer-icon'); // เลือกไอคอนทั้งหมดใน footer
+      // Highlight active link in footer
+      const currentPage = new URLSearchParams(window.location.search).get(
+        "page"
+      );
+      if (currentPage) {
+        document.getElementById(`${currentPage}Link`).classList.add("active");
+      }
 
-            links.forEach(link => {
-                link.classList.remove('active'); // ลบคลาส active ออกจากไอคอนทั้งหมด
-            });
-
-            // เปลี่ยนคลาส active สำหรับไอคอนที่ตรงกับหน้าเว็บที่เปิด
-            if (currentPage === 'home.html') {
-                document.getElementById('homeLink').classList.add('active');
-            } else if (currentPage === 'search.html') {
-                document.getElementById('searchLink').classList.add('active');
-            } else if (currentPage === 'add.html') {
-                document.getElementById('addLink').classList.add('active');
-            } else if (currentPage === 'set.html') {
-                document.getElementById('setLink').classList.add('active');
-            }
-    
-  </script>
-  <!-- Bootstrap & JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-     // เปิด Modal เมื่อคลิกปุ่ม
-     document.getElementById("postButton").addEventListener("click", function (event) {
-            event.preventDefault(); // ป้องกันการส่งฟอร์มถ้ายังไม่กรอกครบ
-            var postModal = new bootstrap.Modal(document.getElementById('postModal'));
-            postModal.show();
+      // Show modal when clicking post button
+      document
+        .getElementById("postButton")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          var postModal = new bootstrap.Modal(
+            document.getElementById("postModal")
+          );
+          postModal.show();
         });
+    </script>
 
-        // เมื่อคลิกปุ่ม Go to Post จะตรวจสอบฟอร์ม
-        document.getElementById('goToPost').addEventListener('click', function(event) {
-            var form = document.getElementById('yourFormId');
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                document.getElementById('formError').classList.remove('d-none');
-            } else {
-                document.getElementById('formError').classList.add('d-none');
-                window.location.href = "post.html"; // ไปที่หน้าของโพสต์
-            }
-        });
-</script>
-</body>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
