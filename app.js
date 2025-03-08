@@ -10,6 +10,12 @@ const postRoutes = require("./backend/routes/posts");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5500",
+  })
+);
+
 // ✅ Middleware
 app.use(cors(CORS_OPTIONS));
 app.use(express.json());
@@ -19,6 +25,9 @@ app.use(compression());
 
 // ✅ Routes
 app.use("/api/posts", postRoutes);
+
+// ✅ Uploads
+app.use("/uploads", express.static(__dirname + "/backend/uploads"));
 
 // ✅ Handle 404 Not Found
 app.use((req, res) => {

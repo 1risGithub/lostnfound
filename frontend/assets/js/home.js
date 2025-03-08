@@ -1,37 +1,37 @@
-const BASE_URL = "http://localhost:4000/api"; // Set in .env for easier modification
+const BASE_URL = "http://localhost:4000";
 
 // ==========================
 // 1. Load posts function
 // ==========================
 async function loadPosts() {
   try {
-    const res = await fetch(`${BASE_URL}/posts`);
+    const res = await fetch(`${BASE_URL}/api/posts`);
     if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
     const posts = await res.json();
 
     const container = document.getElementById("cardContainer");
-    container.innerHTML = ""; // ✅ Clear old content before loading new posts
+    container.innerHTML = "";
 
     posts.forEach((post) => {
+      const imageUrl = post.image
+        ? `${BASE_URL}/uploads/${post.image}`
+        : "https://via.placeholder.com/200"; // ✅ รองรับกรณีไม่มีรูป
+
+      console.log("🖼️ Final Image URL:", imageUrl);
+
       const card = `
         <div class="col-md-4">
           <div class="card h-100">
             ${
               post.image
-                ? `<img src="${post.image}" class="card-img-top" alt="${post.name}">`
-                : ""
+                ? `<img src="http://localhost:4000/uploads/${post.image}" class="card-img-top" alt="${post.name}" style="object-fit: cover; height: 200px;">`
+                : `<div class="card-img-top bg-light" style="height: 200px; display: flex; justify-content: center; align-items: center;">Don't have</div>`
             }
             <div class="card-body">
-              <h5 class="card-title">${post.name || "No title"}</h5>
-              <p class="card-text">${
-                post.description || "No description available."
-              }</p>
-              <small class="text-muted">${
-                post.date
-                  ? new Date(post.date).toLocaleDateString()
-                  : "Unknown date"
-              }</small>
+              <h5 class="card-title">${post.name}</h5>
+              <p class="card-text">${post.description}</p>
+              <small class="text-muted">${post.date || "Unknown date"}</small>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@ async function loadPosts() {
       container.innerHTML += card;
     });
   } catch (err) {
-    console.error("Error loading posts:", err);
+    console.error("🔥 Error loading posts:", err.message);
   }
 }
 
@@ -115,6 +115,6 @@ function loadPage(page) {
 window.addEventListener("popstate", (event) => {
   if (event.state && event.state.page) {
     console.log(`🔙 Back/Forward to: ${event.state.page}`);
-    switchPage(event.state.page); // ✅ ให้เปลี่ยนหน้าได้ทุกหน้า ไม่จำกัดเฉพาะหน้า home
+    switchPage(event.state.page);
   }
 });
