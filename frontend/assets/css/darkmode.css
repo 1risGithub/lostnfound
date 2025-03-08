@@ -2,13 +2,14 @@
 [data-theme="dark"] {
   --background-color: #1e1e1e;
   --text-color: #ffffff;
-  --footer-bg-color: #353535;
+  --footer-bg-color: #292929;
   --footer-icon-color: #bbb;
   --footer-icon-hover-color: #24dece;
-  --header-bg-color: #353535;
+  --header-bg-color: #292929;
   --header-text-color: #ffffff;
 }
 
+/* Header */
 [data-theme="dark"] .app-title {
   color: var(--header-text-color);
 }
@@ -18,11 +19,8 @@
 }
 
 [data-theme="dark"] .header {
+  background-color: var(--header-bg-color);
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .footer {
-  box-shadow: 0 -4px 8px rgba(255, 255, 255, 0.08);
 }
 
 /* ----------------- Dark Mode Toggle Switch ----------------- */
@@ -46,7 +44,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #444;
   transition: background-color 0.3s ease;
   border-radius: 36px;
 }
@@ -69,10 +67,63 @@
 }
 
 input:checked + .slider {
-  background-color: #1e1e1e;
+  background-color: #292929;
 }
 
 input:checked + .slider::before {
   content: "🌙";
   transform: translateX(34px);
+}
+
+/* ----------------- Dark Mode Settings ----------------- */
+[data-theme="dark"] body {
+  background-color: #121212;
+  color: var(--text-color);
+}
+
+/* Card ใน Dark Mode */
+[data-theme="dark"] #cardContainer .card {
+  background-color: #1e1e1e;
+  color: var(--text-color);
+  border: 1px solid #333333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="dark"] #cardContainer .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.9);
+}
+
+[data-theme="dark"] #cardContainer .card-img-top {
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] #cardContainer .card-img-top:hover {
+  opacity: 1;
+}
+
+[data-theme="dark"] #cardContainer .card-title {
+  color: #ffffff;
+}
+
+[data-theme="dark"] #cardContainer .card-text {
+  color: #cccccc;
+}
+
+/* Footer ใน Dark Mode */
+[data-theme="dark"] .footer {
+  background-color: var(--footer-bg-color);
+  border-top: 1px solid #333333;
+  padding: 10px 0;
+}
+
+[data-theme="dark"] .footer-icon i {
+  color: var(--footer-icon-color);
+  transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .footer-icon:hover i {
+  color: var(--footer-icon-hover-color);
 }

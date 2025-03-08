@@ -47,26 +47,37 @@
     </div>
 
     <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
       <div class="container d-flex justify-content-around">
-        <a href="" id="homeLink" onclick="loadPage('home')" class="footer-icon">
+        <a
+          href="?page=home"
+          id="homeLink"
+          onclick="loadPage('home')"
+          class="footer-icon"
+        >
           <i class="bi bi-house-door-fill"></i>
         </a>
         <a
-          href=""
+          href="?page=search"
           id="searchLink"
           onclick="loadPage('search')"
           class="footer-icon"
         >
           <i class="bi bi-search-heart-fill"></i>
         </a>
-        <a href="" id="addLink" onclick="loadPage('add')" class="footer-icon">
+        <a
+          href="?page=add"
+          id="addLink"
+          onclick="loadPage('add')"
+          class="footer-icon"
+        >
           <i class="bi bi-plus-circle-fill"></i>
         </a>
         <a
-          href=""
-          id="signupLink"
-          onclick="loadPage('signup')"
+          href="?page=profile"
+          id="profileLink"
+          onclick="loadPage('profile')"
           class="footer-icon"
         >
           <i class="bi bi-person-fill"></i>
@@ -78,5 +89,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/darkMode.js" defer></script>
     <script src="../assets/js/home.js" defer></script>
+    <script src="../assets/js/search.js" defer></script>
+    <script src="../assets/js/addpost.js"></script>
+    <script src="../assets/js/profile.js" defer></script>
   </body>
 </html>

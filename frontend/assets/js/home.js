@@ -1,61 +1,79 @@
 const BASE_URL = "http://localhost:4000";
 
 // ==========================
-// 1. Load posts function
+// 1. Load page content or posts
 // ==========================
-async function loadPosts() {
+async function loadPageContent(page, query = "") {
+  const container = document.getElementById("cardContainer");
+  container.innerHTML = "";
+
   try {
-    const res = await fetch(`${BASE_URL}/api/posts`);
-    if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+    if (page === "home" || page === "search") {
+      // ✅ ถ้าเป็น home หรือ search → ดึงข้อมูลจาก API
+      const endpoint = query
+        ? `${BASE_URL}/api/search?q=${encodeURIComponent(query)}`
+        : `${BASE_URL}/api/posts`;
 
-    const posts = await res.json();
+      const res = await fetch(endpoint);
+      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
 
-    const container = document.getElementById("cardContainer");
-    container.innerHTML = ""; // Clear any existing posts
+      const posts = await res.json();
 
-    posts.forEach((post) => {
-      const imageUrl = post.image
-        ? `${BASE_URL}/uploads/${post.image}?timestamp=${new Date().getTime()}`
-        : ""; // If no image, leave it empty
+      if (posts.length === 0) {
+        container.innerHTML = `<h5>No results found for "${query}"</h5>`;
+        return;
+      }
 
-      console.log("🖼️ Final Image URL:", imageUrl);
+      posts.forEach((post) => {
+        const imageUrl = post.image
+          ? `${BASE_URL}/uploads/${
+              post.image
+            }?timestamp=${new Date().getTime()}`
+          : "";
 
-      const formattedDate = post.date
-        ? new Date(post.date).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })
-        : "Unknown date";
+        const formattedDate = post.date
+          ? new Date(post.date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })
+          : "Unknown date";
 
-      const card = `
-  <div class="col-12 col-sm-6 col-md-4 col-lg-6">
-    <div class="card h-100">
-      <div class="row g-0">
-        <!-- Image Left (Left on large screens, top on small screens) -->
-        <div class="col-12 col-lg-4" style="padding-left: 10px;">
-          ${
-            post.image
-              ? `<img src="${imageUrl}" class="card-img-top" alt="${post.name}" style="object-fit: cover; width: 100%; max-height: 389px;">`
-              : `<div class="card-img-top bg-light" style="height: 200px; display: flex; justify-content: center; align-items: center;">No image available</div>`
-          }
-        </div>
-        <!-- Data Right (Right on large screens, below image on small screens) -->
-        <div class="col-12 col-lg-8">
-          <div class="card-body">
-            <h5 class="card-title">${post.name}</h5>
-            <p class="card-text">${post.description}</p>
-            <small class="text-muted">${formattedDate}</small>
+        const card = `
+          <div class="col-12 col-sm-6 col-md-4 col-lg-6">
+            <div class="card h-100">
+              <div class="row g-0">
+                <div class="col-12 col-lg-4" style="padding-left: 10px;">
+                  ${
+                    post.image
+                      ? `<img src="${imageUrl}" class="card-img-top" alt="${post.name}" style="object-fit: cover; width: 100%; max-height: 389px;">`
+                      : `<div class="card-img-top bg-light" style="height: 200px; display: flex; justify-content: center; align-items: center;">No image available</div>`
+                  }
+                </div>
+                <div class="col-12 col-lg-8">
+                  <div class="card-body">
+                    <h5 class="card-title">${post.name}</h5>
+                    <p class="card-text">${post.description}</p>
+                    <small class="text-muted">${formattedDate}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-`;
-      container.innerHTML += card; // Append the card to the container
-    });
+        `;
+        container.innerHTML += card;
+      });
+    } else {
+      // ✅ ถ้าเป็น add หรือ profile → โหลดไฟล์ HTML
+      const response = await fetch(`../pages/${page}.html`);
+      if (!response.ok) throw new Error(`Failed to load ${page}.html`);
+
+      const content = await response.text();
+      container.innerHTML = content;
+    }
   } catch (err) {
-    console.error("🔥 Error loading posts:", err.message);
+    console.error(`🔥 Error loading content: ${err.message}`);
+    container.innerHTML = `<h5>❌ Error loading content</h5>`;
   }
 }
 
@@ -63,24 +81,23 @@ async function loadPosts() {
 // 2. Switch content based on query string
 // ==========================
 function switchPage(page) {
+  console.log(`🔄 Switching to: ${page}`);
   const container = document.getElementById("cardContainer");
-
-  // ✅ Clear previous content before switching pages
   container.innerHTML = "";
 
   if (page === "home") {
-    loadPosts(); // ✅ Load posts for home page
+    loadPageContent("../pages/home.html");
   } else if (page === "search") {
-    container.innerHTML = `<h2>🔎 Search Page</h2>`;
+    const query = new URLSearchParams(window.location.search).get("q");
+    loadPageContent("../pages/search.html", query);
   } else if (page === "add") {
-    container.innerHTML = `<h2>➕ Add Post Page</h2>`;
-  } else if (page === "signup") {
-    container.innerHTML = `<h2>👤 Signup/Login Page</h2>`;
+    loadPageContent("../pages/addpost.html");
+  } else if (page === "profile") {
+    loadPageContent("../pages/profile.html"); // ✅ แก้ path ให้ถูกต้อง
   } else {
-    container.innerHTML = `<h2>❌ Page Not Found</h2>`;
+    container.innerHTML = `<h2 style="color: red;">❌ Oops! Page Not Found</h2>`;
   }
 
-  // ✅ Update active state immediately
   setActiveNavLink(page);
 }
 
@@ -88,12 +105,10 @@ function switchPage(page) {
 // 3. Set active footer icon
 // ==========================
 function setActiveNavLink(page) {
-  // ✅ Clear active class from all footer icons
   document.querySelectorAll(".footer-icon").forEach((icon) => {
     icon.classList.remove("active");
   });
 
-  // ✅ Add active class to the current page link
   const activeLink = document.getElementById(`${page}Link`);
   if (activeLink) {
     activeLink.classList.add("active");
@@ -106,6 +121,8 @@ function setActiveNavLink(page) {
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const page = params.get("page") || "home";
+
+  console.log(`🚀 Initial page: ${page}`);
 
   // ✅ Use replaceState for initial load
   history.replaceState({ page }, "", `?page=${page}`);
