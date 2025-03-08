@@ -59,17 +59,39 @@ function switchPage(page) {
 // 3. Set active footer icon
 // ==========================
 function setActiveNavLink(page) {
-  // ✅ Clear active class from all footer icons
+  // ✅ Remove all active states first
   document.querySelectorAll(".footer-icon").forEach((icon) => {
     icon.classList.remove("active");
   });
 
-  // ✅ Add active class to the current page link
+  // ✅ Set active state to the current link
   const activeLink = document.getElementById(`${page}Link`);
   if (activeLink) {
     activeLink.classList.add("active");
   }
 }
+
+function loadPage(page) {
+  history.pushState({ page }, "", `?page=${page}`);
+
+  // ✅ Reset active state first
+  setActiveNavLink(page);
+
+  // ✅ Load content
+  const contentContainer = document.getElementById("contentContainer");
+  contentContainer.innerHTML = `<h2>${
+    page.charAt(0).toUpperCase() + page.slice(1)
+  } Page</h2>`;
+}
+
+// ✅ Listen to popstate for Back/Forward event
+window.addEventListener("popstate", () => {
+  const page =
+    new URLSearchParams(window.location.search).get("page") || "home";
+
+  // ✅ Reset state first!
+  setActiveNavLink(page);
+});
 
 // ==========================
 // 4. Load initial page state

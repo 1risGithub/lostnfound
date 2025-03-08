@@ -84,7 +84,16 @@ body {
   color: var(--footer-icon-hover-color);
 }
 
+.footer-icon.active:hover {
+  pointer-events: none;
+}
+
+.footer-icon:hover:not(.active) {
+  color: var(--footer-icon-hover-color) !important;
+}
+
 .footer-icon.active {
+  pointer-events: none;
   color: var(--footer-icon-hover-color);
 }
 
