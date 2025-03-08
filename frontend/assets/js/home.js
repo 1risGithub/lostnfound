@@ -103,9 +103,15 @@ window.addEventListener("popstate", (event) => {
   if (event.state && event.state.page) {
     console.log(`🔙 Back/Forward to: ${event.state.page}`);
 
-    // ✅ Make setActiveNavLink work faster with setTimeout.
-    setTimeout(() => {
-      switchPage(event.state.page);
-    }, 10); // ✅ A slight delay to allow the browser to update the state first.
+    // If not on home page, redirect to home page
+    if (event.state.page !== "home") {
+      history.replaceState({ page: "home" }, "", "?page=home");
+      switchPage("home");
+    } else {
+      // ✅ Make setActiveNavLink work faster with setTimeout.
+      setTimeout(() => {
+        switchPage(event.state.page);
+      }, 10); // ✅ A slight delay to allow the browser to update the state first.
+    }
   }
 });
