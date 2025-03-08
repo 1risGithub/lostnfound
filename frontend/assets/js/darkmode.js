@@ -1,18 +1,15 @@
-const toggleMode = document.getElementById("toggleMode");
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleMode = document.getElementById("toggleMode");
 
-// Load theme from localStorage
-if (localStorage.getItem("theme") === "dark") {
-  document.documentElement.setAttribute("data-theme", "dark");
-  toggleMode.checked = true;
-}
+  // Set the theme from localStorage or default to 'light'
+  const currentTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", currentTheme);
+  toggleMode.checked = currentTheme === "dark";
 
-// Event for toggling theme
-toggleMode.addEventListener("change", () => {
-  if (toggleMode.checked) {
-    document.documentElement.setAttribute("data-theme", "dark");
-    localStorage.setItem("theme", "dark");
-  } else {
-    document.documentElement.setAttribute("data-theme", "light");
-    localStorage.setItem("theme", "light");
-  }
+  // Toggle the theme when the checkbox is clicked
+  toggleMode.addEventListener("change", function () {
+    const newTheme = toggleMode.checked ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  });
 });
