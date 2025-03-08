@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:4000";
 
 // ==========================
-// 1. Load page content or posts
+// Load page content or posts
 // ==========================
 async function loadPageContent(page, query = "") {
   const container = document.getElementById("cardContainer");
@@ -9,7 +9,7 @@ async function loadPageContent(page, query = "") {
 
   try {
     if (page === "home" || page === "search") {
-      // ✅ If page is "home" or "search", fetch data from API
+      // ✅ ถ้าเป็นหน้า home หรือ search → ดึงข้อมูลจาก API
       const endpoint = query
         ? `${BASE_URL}/api/search?q=${encodeURIComponent(query)}`
         : `${BASE_URL}/api/posts`;
@@ -20,7 +20,6 @@ async function loadPageContent(page, query = "") {
 
       const posts = await res.json();
 
-      // ✅ If no data found
       if (posts.length === 0) {
         container.innerHTML = `
           <div class="text-center mt-4">
@@ -30,13 +29,13 @@ async function loadPageContent(page, query = "") {
         return;
       }
 
-      // ✅ Render each post in a Bootstrap card
+      // ✅ Render post ในรูปแบบ Bootstrap card
       posts.forEach((post) => {
         const imageUrl = post.image
           ? `${BASE_URL}/uploads/${
               post.image
             }?timestamp=${new Date().getTime()}`
-          : ""; // Handle missing image
+          : "";
 
         const formattedDate = post.date
           ? new Date(post.date).toLocaleDateString("en-GB", {
@@ -50,27 +49,16 @@ async function loadPageContent(page, query = "") {
           <div class="col-12 col-sm-6 col-md-4 col-lg-6">
             <div class="card h-100">
               <div class="row g-0">
-                <div class="col-12 col-lg-4" style="
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  padding: 10px;
-                ">
+                <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center p-2">
                   ${
                     post.image
-                      ? `<img src="${imageUrl}" class="card-img-top" alt="${post.name}" 
+                      ? `<img src="${imageUrl}" class="card-img-top" alt="${post.name}"
                           style="object-fit: contain; width: 100%; max-height: 389px; 
                           padding: 5px; border-radius: 12px; border: 2px solid #ddd; 
                           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9;">`
-                      : `<div class="card-img-top bg-light" style="
-                          height: 200px; 
-                          display: flex; 
-                          justify-content: center; 
-                          align-items: center;
-                          border-radius: 12px;
-                          border: 2px solid #ddd;
-                          background-color: #f9f9f9;
-                        ">No image available</div>`
+                      : `<div class="card-img-top bg-light d-flex justify-content-center align-items-center"
+                          style="height: 200px; border-radius: 12px; border: 2px solid #ddd; background-color: #f9f9f9;">
+                          No image available</div>`
                   }
                 </div>
                 <div class="col-12 col-lg-8">
@@ -88,7 +76,6 @@ async function loadPageContent(page, query = "") {
         container.innerHTML += card;
       });
     } else {
-      // ✅ If it's a static page (add or profile), load HTML file
       console.log(`📄 Loading: ../pages/${page}.html`);
       const response = await fetch(`../pages/${page}.html`);
       if (!response.ok) throw new Error(`Failed to load ${page}.html`);
@@ -103,46 +90,49 @@ async function loadPageContent(page, query = "") {
 }
 
 // ==========================
-// 2. Switch content based on query string
+// Switch content based on query string
 // ==========================
 function switchPage(page) {
   console.log(`🔄 Switching to: ${page}`);
+
   const container = document.getElementById("cardContainer");
   container.innerHTML = "";
 
   if (page === "home") {
     loadPageContent("home");
   } else if (page === "search") {
-    const query = new URLSearchParams(window.location.search).get("q");
-    loadPageContent("search", query);
-  } else if (page === "add") {
-    loadPageContent("add");
+    loadPageContent("search");
+  } else if (page === "addpost") {
+    loadPageContent("addpost");
   } else if (page === "profile") {
-    loadPageContent("profile");
+    loadProfilePage();
   } else {
     container.innerHTML = `<h2 style="color: red;">❌ Oops! Page Not Found</h2>`;
   }
+
+  function loadPageContent(page) {
+    console.log(`📄 Loading ${page}.html`);
+    const container = document.getElementById("cardContainer");
+
+    fetch(`../pages/${page}.html`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load ${page}.html`);
+        return res.text();
+      })
+      .then((content) => {
+        container.innerHTML = content;
+      })
+      .catch((err) => {
+        console.error(`🔥 Error loading page: ${err.message}`);
+        container.innerHTML = `<h2 style="color: red;">❌ Error loading ${page}.html</h2>`;
+      });
+  }
+
   setActiveNavLink(page);
 }
 
 // ==========================
-// 3. Set active footer icon
-// ==========================
-function setActiveNavLink(page) {
-  // Remove 'active' class from all footer icons
-  document.querySelectorAll(".footer-icon").forEach((icon) => {
-    icon.classList.remove("active");
-  });
-
-  // Add 'active' class to the selected page's icon
-  const activeLink = document.getElementById(`${page}Link`);
-  if (activeLink) {
-    activeLink.classList.add("active");
-  }
-}
-
-// ==========================
-// 4. Load initial page state
+// Load initial page state
 // ==========================
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
@@ -155,7 +145,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================
-// 5. Change page without reload
+// Set active footer icon
+// ==========================
+function setActiveNavLink(page) {
+  document.querySelectorAll(".footer-icon").forEach((icon) => {
+    icon.classList.remove("active");
+  });
+
+  const activeLink = document.getElementById(`${page}Link`);
+  if (activeLink) {
+    activeLink.classList.add("active");
+  }
+}
+
+// ==========================
+// Change page without reload
 // ==========================
 function loadPage(page) {
   const currentPage = new URLSearchParams(window.location.search).get("page");
@@ -167,7 +171,7 @@ function loadPage(page) {
 }
 
 // ==========================
-// 6. Handle back/forward browser buttons
+// Handle back/forward browser buttons
 // ==========================
 window.addEventListener("popstate", (event) => {
   if (event.state && event.state.page) {
