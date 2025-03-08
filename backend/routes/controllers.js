@@ -1,4 +1,4 @@
-const pool = require("./database");
+const pool = require("../config/database");
 
 async function searchPosts(req, res) {
   const query = req.query.q;
