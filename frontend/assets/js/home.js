@@ -110,24 +110,6 @@ function switchPage(page) {
     container.innerHTML = `<h2 style="color: red;">❌ Oops! Page Not Found</h2>`;
   }
 
-  function loadPageContent(page) {
-    console.log(`📄 Loading ${page}.html`);
-    const container = document.getElementById("cardContainer");
-
-    fetch(`../pages/${page}.html`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load ${page}.html`);
-        return res.text();
-      })
-      .then((content) => {
-        container.innerHTML = content;
-      })
-      .catch((err) => {
-        console.error(`🔥 Error loading page: ${err.message}`);
-        container.innerHTML = `<h2 style="color: red;">❌ Error loading ${page}.html</h2>`;
-      });
-  }
-
   setActiveNavLink(page);
 }
 
